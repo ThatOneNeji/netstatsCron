@@ -1,0 +1,74 @@
+{
+    "amqp": {
+        "server": "192.168.72.250",
+        "user": "wugmsNodeCronSNMP",
+        "password": "wugmsNodeCronSNMP",
+        "queuename": "cron/snmp/nodes"
+    },
+    "snmp": {
+        "community": "asuran",
+        "port": 161
+    },    
+    "logger": {
+        "appenders": {
+            "out": {
+                "type": "console"
+            },
+            "task": {
+                "type": "dateFile",
+                "filename": "logs/wugmsNodeCronSNMP",
+                "pattern": "-dd.log",
+                "alwaysIncludePattern": true
+            }
+        },
+        "categories": {
+            "default": {
+                "appenders": ["out", "task"],
+                "level": "debug"
+            },
+            "task": {
+                "appenders": ["task"],
+                "level": "info"
+            }
+        }
+    },
+    "summary": {
+        "name": "summary_service",
+        "enabled": true,
+        "intervals": ["01", "06", "11", "16", "21", "26", "31", "36", "41", "46", "51", "56"],
+        "update_sql": ["UPDATE tbl_base_snmp_ifmib_raw SET processed = 'y' WHERE ldate < now() - INTERVAL 10 SECOND AND processed = 'n';", "UPDATE tbl_base_snmp_host_resources_processor_raw SET processed = 'y' WHERE ldate < now() - INTERVAL 10 SECOND AND processed = 'n';", "UPDATE tbl_base_snmp_mikrotik_ap_client_raw SET processed = 'y' WHERE ldate < now() - INTERVAL 10 SECOND AND processed = 'n';", "UPDATE tbl_base_snmp_mikrotik_queuetree_raw SET processed = 'y' WHERE ldate < now() - INTERVAL 10 SECOND AND processed = 'n';"],
+        "queuename": "netflow/mysql/data"
+    },
+    "nodes": [{
+            "name": "Soul Eater",
+            "enabled": true,
+            "ip_address": "192.168.100.1",
+            "services": ["ifmib", "host_resources_processor", "host_resources_storage"]
+        }, {
+            "name": "Orphan.Tears",
+            "enabled": true,
+            "ip_address": "192.168.100.2",
+            "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotik_ap_client"]
+        }, {
+            "name": "Asuran",
+            "enabled": true,
+            "ip_address": "192.168.100.3",
+            "services": ["ifmib", "host_resources_processor", "host_resources_storage"]
+        }, {
+            "name": "Morty",
+            "enabled": true,
+            "ip_address": "192.168.100.4",
+            "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotik_ap_client"]
+        }, {
+            "name": "Lanteans",
+            "enabled": true,
+            "ip_address": "192.168.100.5",
+            "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotik_ap_client"]
+        }, {
+            "name": "Asgard",
+            "enabled": true,
+            "ip_address": "192.168.72.254",
+            "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotik_queuetree"]
+        }
+    ]
+}
