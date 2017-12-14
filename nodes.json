@@ -1,0 +1,40 @@
+{
+    "nodes": [{
+            "name": "Soul Eater",
+            "enabled": false,
+            "ip_address": "192.168.100.1",
+            "services": [{
+                    "type": "snmp",
+                    "services": ["ifmib", "host_resources_processor", "host_resources_storage"]
+                }, {
+                    "type": "ssh",
+                    "services": ["ifmib", "host_resources_processor", "host_resources_storage"]
+                }]
+        }, {
+            "name": "Orphan.Tears",
+            "enabled": false,
+            "ip_address": "192.168.100.2",
+            "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotik_ap_client"]
+        }, {
+            "name": "Asuran",
+            "enabled": false,
+            "ip_address": "192.168.100.3",
+            "services": ["ifmib", "host_resources_processor", "host_resources_storage"]
+        }, {
+            "name": "Morty",
+            "enabled": false,
+            "ip_address": "192.168.100.4",
+            "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotik_ap_client"]
+        }, {
+            "name": "Lanteans",
+            "enabled": false,
+            "ip_address": "192.168.100.5",
+            "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotik_ap_client"]
+        }, {
+            "name": "Asgard",
+            "enabled": true,
+            "ip_address": "192.168.72.254",
+            "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotik_queuetree"]
+        }
+    ]
+}
