@@ -1,16 +1,8 @@
 var appConfig = require('./settings.json');
 var appServices = require('./services.json');
+var appProtocol = require('./protocols.json');
 var appNodes;
-var log4js = require('log4js');
-var moment = require('moment');
-
-var logger = log4js.getLogger('netstatsNodeCronSNMP');
-
-var cron1 = require('node-cron');
-var cron5 = require('node-cron');
-var cron10 = require('node-cron');
-var cron15 = require('node-cron');
-
+var log4js = require('log4js'), moment = require('moment'), logger = log4js.getLogger('netstatsNodeCron'), cron1 = require('node-cron'), cron5 = require('node-cron'), cron10 = require('node-cron'), cron15 = require('node-cron');
 function initLogger() {
     log4js.configure(appConfig.logger);
 }
@@ -22,7 +14,6 @@ function initLoadNodes() {
 initLogger();
 logger.info('Starting...');
 var open = require('amqplib').connect('amqp://' + appConfig.amqp.user + ':' + appConfig.amqp.password + '@' + appConfig.amqp.server);
-
 function getIndex(target_array, service) {
     var array_size = target_array.length;
     for (var j = 0; j < array_size; j++) {
@@ -49,6 +40,41 @@ function getNodes(target_array, service) {
     return target_nodes;
 }
 
+function getProtocolsByInterval(target_array, interval) {
+    var res = [];
+    var array_size = target_array.length;
+    for (var n = 0; n < array_size; n++) {
+        var protocol_service = {};
+        if (target_array[n]['enabled']) {
+            logger.debug('Protocol: ' + target_array[n]['type'] + ' (enabled)');
+            let interval_size = target_array[n]['intervals'].length;
+            let protocol_service = [];
+            let data = {};
+            data.protocol = target_array[n]['type'];
+            for (var i = 0; i < interval_size; i++) {
+                if ((target_array[n]['intervals'][i]['value'] === interval) && (target_array[n]['intervals'][i]['enabled'])) {
+                    var service_size = target_array[n]['intervals'][i]['services'].length;
+                    for (var j = 0; j < service_size; j++) {
+                        var serviceData = {
+                            name: target_array[n]['intervals'][i]['services'][j],
+                            age: target_array[n]['intervals'][i]['age']
+                        };
+                        protocol_service.push(serviceData);
+                        logger.debug('Service found: ' + serviceData.name + ' for protocol: ' + target_array[n]['type'] + ' age: ' + serviceData.age + ' second(s)');
+                    }
+                    data.services = protocol_service;
+                }
+            }
+            if (data.services) {
+                res.push(data);
+            }
+        } else {
+            logger.debug('Protocol: ' + target_array[n]['type'] + ' (disabled)');
+        }
+    }
+    return res;
+}
+
 function publisher(queuename, msg) {
     open.then(function (conn) {
         return conn.createChannel();
@@ -64,30 +90,40 @@ function publisher(queuename, msg) {
     }).catch(console.warn);
 }
 
-function runService(mib) {
-    var tn = getNodes(appConfig.nodes, mib);
-    var tn_size = tn.length;
-    if (tn_size > 0) {
-        rDate = moment().format("YYYY/MM/DD HH:mm:00");
-        startTime = moment().unix();
-        endTime = moment(moment().add(240, 'seconds')).unix();
-        for (var d = 0; d < tn_size; d++) {
-            msg = {};
-            msg.stime = startTime;
-            msg.etime = endTime;
-            msg.rdate = rDate;
-            msg.mib = mib;
-            msg.target = tn[d];
-            publisher(appConfig.amqp.queuename, msg);
-            logger.info(msg);
+function getTargetsForServices(source_array) {
+    var source_size = source_array.length;
+    for (var t = 0; t < source_size; t++) {
+        logger.debug('Protocol ' + source_array[t]['protocol']);
+        var service_size = source_array[t]['services'].length;
+        for (var s = 0; s < service_size; s++) {
+            var tn = getNodes(appNodes.nodes, source_array[t]['services'][s]['name']);
+            var tn_size = tn.length;
+            if (tn_size > 0) {
+                for (var d = 0; d < tn_size; d++) {
+                    let msg = {
+                        stime: moment().unix(),
+                        etime: moment(moment().add(source_array[t]['services'][s]['age'], 'seconds')).unix(),
+                        rdate: moment().format("YYYY/MM/DD HH:mm:00"),
+                        service: source_array[t]['services'][s],
+                        target: tn[d]
+                    };
+                    logger.info('Queue: ' + appConfig.amqp.queuename + source_array[t]['protocol'] + ' Msg: ' + JSON.stringify(msg));
+                    publisher(appConfig.amqp.queuename + source_array[t]['protocol'], msg);
+                }
+            } else {
+                logger.info("No nodes have subscribed to the service: " + source_array[t]['services'][s]['name']);
+            }
         }
-    } else {
-        logger.info("No nodes have subscribed to the service: " + mib);
     }
 }
 
+
+function runService(interval) {
+    getTargetsForServices(getProtocolsByInterval(appProtocol.protocols, interval));
+}
+
 function inArray(needle, haystack) {
-    var length = haystack.length;
+    let length = haystack.length;
     for (var i = 0; i < length; i++) {
         if (haystack[i] === needle)
             return true;
@@ -101,9 +137,10 @@ function runSummary() {
         logger.debug('Running summaries service for interval: ' + interval);
         var lengthT = appServices.summary.update_sql.length;
         for (var i = 0; i < lengthT; i++) {
-            newMsg = {};
-            newMsg.service = appServices.summary['name'];
-            newMsg.sql = appServices.summary.update_sql[i];
+            let newMsg = {
+                service: appServices.summary['name'] + '___' + appServices.summary.update_sql[i]['name'],
+                sql: appServices.summary.update_sql[i]
+            };
             publisher(appServices.summary['queuename'], newMsg);
         }
     } else {
@@ -116,42 +153,34 @@ function runReloadNodes() {
     if (inArray(interval, appServices.reloadnodes['intervals'])) {
         logger.debug('Running reload node service for interval: ' + interval);
         initLoadNodes();
-        console.log(appNodes);
     } else {
         logger.debug('No reload node service for interval: ' + interval);
     }
 }
 
 function runUpdates() {
-    if (appServices.summary['enabled']) {
+    if (appServices.summary['enabled'])
         runSummary();
-    }
-
-    if (appServices.summary['enabled']) {
+    if (appServices.reloadnodes['enabled'])
         runReloadNodes();
-    }
 }
 
+initLoadNodes();
 cron1.schedule('* * * * *', function () {
     strd = moment().format("YYYY/MM/DD HH:mm:ss.SSS");
-    logger.debug('Running cron (* * * * *)');
+    logger.info('Running cron (* * * * *)');
     runUpdates();
-
+    runService('1');
 });
-
 cron5.schedule('*/5 * * * *', function () {
-    logger.debug('Running cron (*/5 * * * *)');
-//    runService('host_resources_processor');
-    //  runService('mikrotik_queuetree');
-//    runService('host_resources_storage');
-    //runService('ifmib');
-    //runService('mikrotik_ap_client');
+    logger.info('Running cron (*/5 * * * *)');
+    runService('5');
 });
-
 cron10.schedule('*/10 * * * *', function () {
-    logger.debug('Running cron (*/10 * * * *)');
+    logger.info('Running cron (*/10 * * * *)');
+    runService('10');
 });
-
 cron15.schedule('*/15 * * * *', function () {
-    logger.debug('Running cron (*/15 * * * *)');
+    logger.info('Running cron (*/15 * * * *)');
+    runService('15');
 });

@@ -1,0 +1,53 @@
+{
+    "protocols": [{
+            "type": "snmp",
+            "enabled": true,
+            "intervals": [{
+                    "value": "1",
+                    "enabled": false,
+                    "services": ["testing"],
+                    "age": "30"
+                }, {
+                    "value": "5",
+                    "enabled": true,
+                    "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotik_ap_client", "mikrotik_grp"],
+                    "age": "150"
+                }, {
+                    "value": "10",
+                    "enabled": false,
+                    "services": [],
+                    "age": "300"
+                }, {
+                    "value": "15",
+                    "enabled": false,
+                    "services": [],
+                    "age": "450"
+                }
+            ]
+        },
+        {
+            "type": "ssh",
+            "enabled": false,
+            "intervals": [{
+                    "value": "1",
+                    "enabled": false,
+                    "services": [],
+                    "age": "30"
+                }, {
+                    "value": "5",
+                    "enabled": true,
+                    "services": ["bgp_peer", "wireless_registration", "arp"],
+                    "age": "150"
+                }, {
+                    "value": "10",
+                    "enabled": false,
+                    "services": [],
+                    "age": "300"
+                }, {
+                    "value": "15",
+                    "enabled": false,
+                    "services": [],
+                    "age": "450"
+                }]
+        }]
+}

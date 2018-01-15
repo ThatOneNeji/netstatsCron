@@ -1,8 +1,8 @@
 {
     "amqp": {
         "server": "192.168.72.250",
-        "user": "netstatsNodeCronSNMP",
-        "password": "netstatsNodeCronSNMP",
+        "user": "netstatsNodeCron",
+        "password": "netstatsNodeCron",
         "queuename": "netstats/cron/"
     },
     "snmp": {
@@ -16,7 +16,7 @@
             },
             "task": {
                 "type": "file",
-                "filename": "logs/netstatsNodeCronSNMP.log",
+                "filename": "logs/netstatsNodeCron.log",
                 "maxLogSize": 1048576,
                 "backups": 10
             }
