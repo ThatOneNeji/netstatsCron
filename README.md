@@ -1,12 +1,16 @@
 # netstatsNodeCron
-netstatsNodeCron manages the cron for netstats
+
+[![Build Status](https://travis-ci.org/ThatOneNeji/netstatsNodeCron.svg?branch=master)](https://travis-ci.org/ThatOneNeji/netstatsNodeCron)
+
+netstatsNodeCron manages the cron for netstats group of applications
 
 ## Overview
-This node application is one of the 4 main applications within the "netstats" collection of applications. While running it sends command requests to an AMQP instance which in turn is processed by <strong>netstatsNodeSNMPPoller</strong>.
+This node application is one of the five main applications within the "netstats" collection of applications. While running it sends command requests to an AMQP instance which in turn is processed by **netstatsNode<_protocol_>Poller**.
 
 ## Hierarchy of netstats applications
-* netstatsNodeCron - This application
-* netstatsNodeSNMPPoller - The poller application that actions the requests from netstatsNodeCron
+* netstatsNodeCron - **This application**
+* netstatsNodeSNMPPoller - The poller application that actions the requests from netstatsNodeCron for the SNMP protocol
+* netstatsNodeSSHPoller - The poller application that actions the requests from netstatsNodeCron for the SSH protocol
 * netstatsNodeSNMPProcessor - The processing application that actions returned data from netstatsNodeSNMPPoller
 * netstatsNodeMySQLLoader - Primary MySQL loader
 
@@ -28,7 +32,7 @@ This node application is one of the 4 main applications within the "netstats" co
 
 ## Planned/In progress 
 * Update the summary service so it is easier to add an additional summary services.
-* Add "type" to the services that are used to poll the nodes. (Thinking SNMP/SSH for future proofing)
-* Add field to nodes.json to indicate which service use which intervals; 1min, 5min, 10min, 15min
-   * Send that interval value with the request message to the message queue
 * Add "reload nodes.json" configuration service.
+* In **netstatsDisplay** add a configuration page for the nodes, services and protocols.
+  * Add some sort of function to pull that data from the DB and save it as a JSON file.
+

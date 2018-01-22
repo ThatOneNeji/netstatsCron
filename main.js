@@ -1,5 +1,5 @@
 var appConfig = require('./settings.json');
-var appServices = require('./services.json');
+var appInternalServices = require('./internalservices.json');
 var appProtocol = require('./protocols.json');
 var appNodes;
 var log4js = require('log4js'), moment = require('moment'), logger = log4js.getLogger('netstatsNodeCron'), cron1 = require('node-cron'), cron5 = require('node-cron'), cron10 = require('node-cron'), cron15 = require('node-cron');
@@ -32,7 +32,11 @@ function getNodes(target_array, service) {
             var node_size = target_array[n]['services'].length;
             for (var a = 0; a < node_size; a++) {
                 if (target_array[n]['services'][a] === service) {
-                    target_nodes.push(target_array[n]['ip_address']);
+                    let targetInfo = {
+                        address: target_array[n]['ip_address'],
+                        protocols: target_array[n]['protocols']
+                    };
+                    target_nodes.push(targetInfo);
                 }
             }
         }
@@ -87,8 +91,22 @@ function publisher(queuename, msg) {
                 logger.error(alreadyClosed.stackAtStateChange);
             }
         });
-    }).catch(console.warn);
+    }).catch(logger.warn);
 }
+
+
+function getElementDataByName(parray, ename) {
+    for (var f = 0; f < parray.length; f++) {
+        if (parray[f]['type'] === ename) {
+            var procotolInfo = {
+                name: parray[f]['name'],
+                port: parray[f]['port']
+            };
+        }
+    }
+    return procotolInfo;
+}
+
 
 function getTargetsForServices(source_array) {
     var source_size = source_array.length;
@@ -100,12 +118,15 @@ function getTargetsForServices(source_array) {
             var tn_size = tn.length;
             if (tn_size > 0) {
                 for (var d = 0; d < tn_size; d++) {
+                    let protocolData = getElementDataByName(tn[d].protocols, source_array[t]['protocol']);
                     let msg = {
                         stime: moment().unix(),
                         etime: moment(moment().add(source_array[t]['services'][s]['age'], 'seconds')).unix(),
                         rdate: moment().format("YYYY/MM/DD HH:mm:00"),
-                        service: source_array[t]['services'][s],
-                        target: tn[d]
+                        service: source_array[t]['services'][s]['name'],
+                        target: tn[d].address,
+                        name: protocolData['name'],
+                        port: protocolData['port']
                     };
                     logger.info('Queue: ' + appConfig.amqp.queuename + source_array[t]['protocol'] + ' Msg: ' + JSON.stringify(msg));
                     publisher(appConfig.amqp.queuename + source_array[t]['protocol'], msg);
@@ -133,15 +154,15 @@ function inArray(needle, haystack) {
 
 function runSummary() {
     interval = moment().format("mm");
-    if (inArray(interval, appServices.summary['intervals'])) {
+    if (inArray(interval, appInternalServices.summary['intervals'])) {
         logger.debug('Running summaries service for interval: ' + interval);
-        var lengthT = appServices.summary.update_sql.length;
+        var lengthT = appInternalServices.summary.update_sql.length;
         for (var i = 0; i < lengthT; i++) {
             let newMsg = {
-                service: appServices.summary['name'] + '___' + appServices.summary.update_sql[i]['name'],
-                sql: appServices.summary.update_sql[i]
+                service: appInternalServices.summary['name'] + '___' + appInternalServices.summary.update_sql[i]['name'],
+                sql: appInternalServices.summary.update_sql[i]
             };
-            publisher(appServices.summary['queuename'], newMsg);
+            publisher(appInternalServices.summary['queuename'], newMsg);
         }
     } else {
         logger.debug('No summaries service for interval: ' + interval);
@@ -150,7 +171,7 @@ function runSummary() {
 
 function runReloadNodes() {
     interval = moment().format("mm");
-    if (inArray(interval, appServices.reloadnodes['intervals'])) {
+    if (inArray(interval, appInternalServices.reloadnodes['intervals'])) {
         logger.debug('Running reload node service for interval: ' + interval);
         initLoadNodes();
     } else {
@@ -159,9 +180,9 @@ function runReloadNodes() {
 }
 
 function runUpdates() {
-    if (appServices.summary['enabled'])
+    if (appInternalServices.summary['enabled'])
         runSummary();
-    if (appServices.reloadnodes['enabled'])
+    if (appInternalServices.reloadnodes['enabled'])
         runReloadNodes();
 }
 
