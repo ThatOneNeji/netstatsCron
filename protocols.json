@@ -4,7 +4,7 @@
             "enabled": true,
             "intervals": [{
                     "value": "1",
-                    "enabled": true,
+                    "enabled": false,
                     "services": ["testing"],
                     "age": "30"
                 }, {

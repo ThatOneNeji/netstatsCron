@@ -13,17 +13,7 @@
     "url": "https://github.com/ThatOneNeji/netstatsNodeCron.git"
   },
   "description": "Cron management for SNMP polling",
-  "scripts": {
-    "test": "node_modules/.bin/mocha --reporter spec",
-    "coverage": "./node_modules/istanbul/lib/cli.js cover _mocha",
-    "report-coverage": "cat ./coverage/lcov.info | coveralls"
-  },
   "license": "MIT",
-  "devDependencies": {
-    "coveralls": "^3.0.0",
-    "istanbul": "^0.4.5",
-    "mocha": "5.0.0"
-  },
   "author": "ThatOneNeji",
   "contributors": [],
   "dependencies": {

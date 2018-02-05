@@ -1,7 +1,10 @@
 # netstatsNodeCron
 
 [![Build Status](https://travis-ci.org/ThatOneNeji/netstatsNodeCron.svg?branch=master)](https://travis-ci.org/ThatOneNeji/netstatsNodeCron)
-[![Coverage Status](https://coveralls.io/repos/github/ThatOneNeji/netstatsNodeCron/badge.svg?branch=master)](https://coveralls.io/github/ThatOneNeji/netstatsNodeCron?branch=master)
+
+
+<!--- [![Coverage Status](https://coveralls.io/repos/github/ThatOneNeji/netstatsNodeCron/badge.svg?branch=master)](https://coveralls.io/github/ThatOneNeji/netstatsNodeCron?branch=master)
+-->
 
 netstatsNodeCron manages the cron for netstats group of applications
 
