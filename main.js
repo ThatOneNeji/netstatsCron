@@ -59,7 +59,8 @@ function getProtocolsByInterval(target_array, interval) {
                     for (var j = 0; j < service_size; j++) {
                         var serviceData = {
                             name: target_array[n]['intervals'][i]['services'][j],
-                            age: target_array[n]['intervals'][i]['age']
+                            age: target_array[n]['intervals'][i]['age'],
+                            interval: target_array[n]['intervals'][i]['value']
                         };
                         protocol_service.push(serviceData);
                         messageLogger.debug('Service: "' + serviceData.name + '" Protocol: "' + target_array[n]['type'] + '" Age: "' + serviceData.age + '" second(s)');
@@ -125,6 +126,7 @@ function getTargetsForServices(source_array) {
                         etime: moment(moment().add(source_array[t]['services'][s]['age'], 'seconds')).unix(),
                         rdate: moment().format("YYYY/MM/DD HH:mm:00"),
                         service: source_array[t]['services'][s]['name'],
+                        interval: source_array[t]['services'][s]['interval'],
                         target: tn[d].address,
                         name: protocolData['name'],
                         port: protocolData['port']
