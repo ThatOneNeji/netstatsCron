@@ -5,12 +5,12 @@
             "intervals": [{
                     "value": "1",
                     "enabled": true,
-                    "services": ["testing"],
+                    "services": ["mikrotiksystem", "ifmib", "mikrotik_ap_client"],
                     "age": "30"
                 }, {
                     "value": "5",
-                    "enabled": true,
-                    "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotik_ap_client", "mikrotik_grp"],
+                    "enabled": false,
+                    "services": ["host_resources_processor", "host_resources_storage", "mikrotik_grp"],
                     "age": "150"
                 }, {
                     "value": "10",

@@ -29,14 +29,21 @@ function getIndex(target_array, service) {
 }
 
 function getNodes(targetArray, service) {
-    var targetNodes = [];
+    let targetNodes = [];
     targetArray.forEach(function (node) {
-        if ((node.enabled) && (String(node.services) === service)) {
-            let targetNode = {
-                address: node.ip_address,
-                protocols: node.protocols
-            };
-            targetNodes.push(targetNode);
+        //      console.log('service ' + service);
+//        console.log(node.services);
+        //       console.log('ff ' + node.services.length);
+        if (node.enabled) {
+            for (let nsl = 0; nsl < node.services.length; nsl++) {
+                if (String(node.services[nsl]) === service) {
+                    let targetNode = {
+                        address: node.ip_address,
+                        protocols: node.protocols
+                    };
+                    targetNodes.push(targetNode);
+                }
+            }
         }
     });
     return targetNodes;
@@ -78,6 +85,24 @@ function getProtocolsByInterval(target_array, interval) {
     return res;
 }
 
+function singlePublish(queuename, payload) {
+    broker.then(function (conn) {
+        return conn.createChannel();
+    }).then(function (ch) {
+        return ch.assertQueue(queuename).then(function (ok) {
+//            payloads.forEach(function (payload) {
+            amqpLogger.debug('Sending payload to the queue broker: ' + JSON.stringify(payload));
+            ch.sendToQueue(queuename, new Buffer(JSON.stringify(payload)));
+//            });
+            try {
+                return ch.close();
+            } catch (alreadyClosed) {
+                amqpLogger.error(alreadyClosed.stackAtStateChange);
+            }
+        });
+    }).catch(amqpLogger.warn);
+}
+
 function batchPublish(queuename, payloads) {
     broker.then(function (conn) {
         return conn.createChannel();
@@ -110,18 +135,18 @@ function getElementDataByName(parray, ename) {
 
 
 function getTargetsForServices(source_array) {
-    var source_size = source_array.length;
-    var payloads = [];
-    for (var t = 0; t < source_size; t++) {
+    let source_size = source_array.length;
+    let payloads = [];
+    for (let t = 0; t < source_size; t++) {
         messageLogger.debug('Protocol ' + source_array[t]['protocol']);
-        var service_size = source_array[t]['services'].length;
-        for (var s = 0; s < service_size; s++) {
-            var tn = getNodes(appNodes.nodes, source_array[t]['services'][s]['name']);
-            var tn_size = tn.length;
+        let service_size = source_array[t]['services'].length;
+        for (let s = 0; s < service_size; s++) {
+            let tn = getNodes(appNodes.nodes, source_array[t]['services'][s]['name']);
+            let tn_size = tn.length;
             if (tn_size > 0) {
-                for (var d = 0; d < tn_size; d++) {
+                for (let d = 0; d < tn_size; d++) {
                     let protocolData = getElementDataByName(tn[d].protocols, source_array[t]['protocol']);
-                    let msg = {
+                    var msg = {
                         stime: moment().unix(),
                         etime: moment(moment().add(source_array[t]['services'][s]['age'], 'seconds')).unix(),
                         rdate: moment().format("YYYY/MM/DD HH:mm:00"),
@@ -133,8 +158,9 @@ function getTargetsForServices(source_array) {
                     };
                     messageLogger.info('Queue: ' + appConfig.amqp.queuename + source_array[t]['protocol'] + ' Msg: ' + JSON.stringify(msg));
                     payloads.push(msg);
+                    singlePublish(appConfig.amqp.queuename + source_array[t]['protocol'], msg);
                 }
-                batchPublish(appConfig.amqp.queuename + source_array[t]['protocol'], payloads);
+//                batchPublish(appConfig.amqp.queuename + source_array[t]['protocol'], payloads);
             } else {
                 messageLogger.info("No nodes have subscribed to the service: " + source_array[t]['services'][s]['name']);
             }
