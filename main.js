@@ -1,238 +1,272 @@
 var appConfig = require('./settings.json');
-var appInternalServices = require('./internalservices.json');
-var appProtocol = require('./protocols.json');
-var appNodes;
+var appServices, appNodes, broker, activeServices, activeNodes, runtimeList = {};
 
 var log4js = require('log4js'), moment = require('moment'), cron = require('node-cron');
+var appQueue = require('./faQueue.js');
+const crypto = require('crypto');
 
-var genLogger = log4js.getLogger('netstatsNodeCron');
-var amqpLogger = log4js.getLogger('AMQP');
-var messageLogger = log4js.getLogger('messages');
-
+var genLogger = log4js.getLogger('general'), queueLogger = log4js.getLogger('queue'), messageLogger = log4js.getLogger('messages');
 log4js.configure(appConfig.logger);
-
-function initLoadNodes() {
-    appNodes = require('./nodes.json');
-}
-
 genLogger.info('Starting...');
 
-var broker = require('amqplib').connect('amqp://' + appConfig.amqp.user + ':' + appConfig.amqp.password + '@' + appConfig.amqp.server);
-function getIndex(target_array, service) {
-    var array_size = target_array.length;
-    for (var j = 0; j < array_size; j++) {
-        if (service === target_array[j]['name']) {
-            return j;
-        }
+let queueSettings = {
+    url: 'amqp://' + appConfig.amqp.user + ':' + appConfig.amqp.password + '@' + appConfig.amqp.server,
+    consumeQueueName: appConfig.amqp.consumeQueueName,
+    isWorkerEnabled: false
+};
+appQueue.init(log4js, queueSettings, false);
+
+function loadServices() {
+    try {
+        appServices = JSON.parse(require('fs').readFileSync('./services.json', 'utf8'));
+        genLogger.info('Services loaded');
+    } catch (err) {
+        genLogger.error(err);
     }
-    return false;
 }
 
-function getNodes(targetArray, service) {
-    let targetNodes = [];
-    targetArray.forEach(function (node) {
-        //      console.log('service ' + service);
-//        console.log(node.services);
-        //       console.log('ff ' + node.services.length);
-        if (node.enabled) {
-            for (let nsl = 0; nsl < node.services.length; nsl++) {
-                if (String(node.services[nsl]) === service) {
-                    let targetNode = {
-                        address: node.ip_address,
-                        protocols: node.protocols
-                    };
-                    targetNodes.push(targetNode);
-                }
-            }
-        }
-    });
-    return targetNodes;
-}
+function flattenServices() {
+    activeServices = [];
+    genLogger.info('Flatting services');
+    appServices.config.forEach(function (serviceRaw) {
+        if (serviceRaw.active) {
+            for (let st = 0; st < serviceRaw.services.length; st++) {
+                if (serviceRaw.services[st].active) {
+                    for (let inv = 0; inv < serviceRaw.services[st].inventory.length; inv++) {
+                        if (serviceRaw.services[st].inventory[inv].active) {
+                            genLogger.debug('Protocol "' + serviceRaw.protocol + '" has inventory item "' + serviceRaw.services[st].inventory[inv].name + '" enabled for "' + (serviceRaw.services[st].interval * 60) + '" seconds interval');
+                            if (serviceRaw.services[st].inventory[inv].hasOwnProperty("electives")) {
+                                for (let elec = 0; elec < serviceRaw.services[st].inventory[inv].electives.length; elec++) {
 
-function getProtocolsByInterval(target_array, interval) {
-    var res = [];
-    var array_size = target_array.length;
-    for (var n = 0; n < array_size; n++) {
-        var protocol_service = {};
-        if (target_array[n]['enabled']) {
-            messageLogger.debug('Protocol: ' + target_array[n]['type'] + ' (enabled)');
-            let interval_size = target_array[n]['intervals'].length;
-            let protocol_service = [];
-            let data = {};
-            data.protocol = target_array[n]['type'];
-            for (var i = 0; i < interval_size; i++) {
-                if ((target_array[n]['intervals'][i]['value'] === interval) && (target_array[n]['intervals'][i]['enabled'])) {
-                    var service_size = target_array[n]['intervals'][i]['services'].length;
-                    for (var j = 0; j < service_size; j++) {
-                        var serviceData = {
-                            name: target_array[n]['intervals'][i]['services'][j],
-                            age: target_array[n]['intervals'][i]['age'],
-                            interval: target_array[n]['intervals'][i]['value']
-                        };
-                        protocol_service.push(serviceData);
-                        messageLogger.debug('Service: "' + serviceData.name + '" Protocol: "' + target_array[n]['type'] + '" Age: "' + serviceData.age + '" second(s)');
+                                    if (serviceRaw.services[st].inventory[inv].electives[elec].active) {
+                                        let msg = {
+                                            protocol: serviceRaw.protocol,
+                                            parameters: serviceRaw.parameters,
+                                            area: serviceRaw.area,
+                                            group: serviceRaw.services[st].group,
+                                            interval: serviceRaw.services[st].interval,
+                                            name: serviceRaw.services[st].inventory[inv].name,
+                                            elective: serviceRaw.services[st].inventory[inv].electives[elec].name
+                                        };
+                                        activeServices.push(msg);
+                                    } else {
+                                        genLogger.debug('Elective "' + serviceRaw.services[st].inventory[inv].electives[elec].name + '" is disabled for "' + serviceRaw.services[st].inventory[inv].name + '"');
+                                    }
+                                }
+                            } else {
+                                let msg = {
+                                    protocol: serviceRaw.protocol,
+                                    parameters: serviceRaw.parameters,
+                                    area: serviceRaw.area,
+                                    group: serviceRaw.services[st].group,
+                                    interval: serviceRaw.services[st].interval,
+                                    name: serviceRaw.services[st].inventory[inv].name
+                                };
+                                activeServices.push(msg);
+                            }
+
+                        } else {
+                            genLogger.debug('Inventory entry "' + serviceRaw.services[st].inventory[inv].name + '" is not enabled for "' + serviceRaw.services[st].group + '"');
+                        }
                     }
-                    data.services = protocol_service;
+                } else {
+                    genLogger.error('Service group "' + serviceRaw.services[st].group + '" is not enabled for "' + serviceRaw.protocol + '"');
                 }
-            }
-            if (data.services) {
-                res.push(data);
             }
         } else {
-            messageLogger.debug('Protocol: ' + target_array[n]['type'] + ' (disabled)');
+            genLogger.debug(serviceRaw.protocol + ' is disabled, skipping');
+        }
+    });
+}
+
+function loadNodes() {
+    try {
+        appNodes = JSON.parse(require('fs').readFileSync('./nodes.json', 'utf8'));
+        genLogger.info('Nodes loaded');
+    } catch (err) {
+        genLogger.error(err);
+    }
+}
+
+function flattenNodes() {
+    genLogger.info('Flatting services');
+    activeNodes = [];
+    appNodes.nodes.forEach(function (nodeRaw) {
+        if (nodeRaw.active) {
+            genLogger.debug('Node "' + nodeRaw.name + '" is enabled');
+            for (let nsl = 0; nsl < nodeRaw.subscriptions.length; nsl++) {
+                if (nodeRaw.subscriptions[nsl].active) {
+                    let msg = {
+                        targetname: nodeRaw.name,
+                        targetaddress: nodeRaw.ip_address,
+                        subscription: nodeRaw.subscriptions[nsl].name,
+                        protocols: nodeRaw.protocols
+                    };
+                    activeNodes.push(msg);
+                } else {
+                    genLogger.debug('Service topic ' + nodeRaw.subscriptions[nsl].name + ' is not enabled for ' + nodeRaw.name);
+                }
+            }
+        } else {
+            genLogger.debug(nodeRaw.name + ' is disabled');
+        }
+    });
+    genLogger.debug('Found ' + activeNodes.length + ' active topics for hosts ');
+}
+
+function getOverRideParameters(paramName, paramArray) {
+    if (paramArray.length > 0) {
+        for (let j = 0; j < paramArray.length; j++) {
+            if (paramArray[j].name === paramName) {
+                paramArray[j].hasOwnProperty("parameters");
+                return paramArray[j].parameters;
+            }
         }
     }
-    return res;
+    return null;
+}
+
+function compileServiceHost(activeService, activeNode) {
+    let builtStr = {
+        area: activeService.area,
+        protocol: activeService.protocol,
+        group: activeService.group,
+        interval: activeService.interval,
+        parameters: activeService.parameters,
+        name: activeService.name,
+        elective: activeService.elective,
+        target: activeNode.targetname,
+        address: activeNode.targetaddress
+    };
+    if (activeService.check) {
+        builtStr.check = activeService.check;
+    }
+    if (activeService.cmd) {
+        builtStr.cmd = activeService.cmd;
+    }
+    if (typeof (activeNode.hasOwnProperty("protocols"))) {
+        let res = getOverRideParameters(activeService.protocol, activeNode.protocols);
+        if (res) {
+            genLogger.debug('Node "' + activeNode.targetname + '" has override parameters for "' + activeService.name + '" in group "' + activeService.group + '"');
+            builtStr.parameters = res;
+        }
+
+    }
+    return builtStr;
+}
+
+function buildServiceHost() {
+    genLogger.info('Building service host list');
+    activeServices.forEach(function (activeService) {
+        activeNodes.forEach(function (activeNode) {
+            if (activeService.group === activeNode.subscription) {
+                if (typeof (runtimeList[activeService.interval]) === 'undefined') {
+                    runtimeList[activeService.interval] = [];
+                }
+                runtimeList[activeService.interval].push(compileServiceHost(activeService, activeNode));
+            }
+        });
+    });
+    genLogger.info('Service host list, built.');
 }
 
 function singlePublish(queuename, payload) {
-    broker.then(function (conn) {
-        return conn.createChannel();
-    }).then(function (ch) {
-        return ch.assertQueue(queuename).then(function (ok) {
-//            payloads.forEach(function (payload) {
-            amqpLogger.debug('Sending payload to the queue broker: ' + JSON.stringify(payload));
-            ch.sendToQueue(queuename, new Buffer(JSON.stringify(payload)));
-//            });
-            try {
-                return ch.close();
-            } catch (alreadyClosed) {
-                amqpLogger.error(alreadyClosed.stackAtStateChange);
-            }
-        });
-    }).catch(amqpLogger.warn);
+    queueLogger.debug('Sending payload to the queue broker: ' + JSON.stringify(payload));
+    appQueue.publishMsg("", queuename, JSON.stringify(payload));
 }
 
 function batchPublish(queuename, payloads) {
-    broker.then(function (conn) {
-        return conn.createChannel();
-    }).then(function (ch) {
-        return ch.assertQueue(queuename).then(function (ok) {
-            payloads.forEach(function (payload) {
-                amqpLogger.debug('Sending payload to the queue broker: ' + JSON.stringify(payload));
-                ch.sendToQueue(queuename, new Buffer(JSON.stringify(payload)));
-            });
-            try {
-                return ch.close();
-            } catch (alreadyClosed) {
-                amqpLogger.error(alreadyClosed.stackAtStateChange);
-            }
-        });
-    }).catch(amqpLogger.warn);
+    payloads.forEach(function (payload) {
+        queueLogger.debug('Sending payload to the queue broker: ' + JSON.stringify(payload));
+        payload.qtime = moment().valueOf();
+        appQueue.publishMsg("", queuename, JSON.stringify(payload));
+    });
 }
 
-function getElementDataByName(parray, ename) {
-    for (var f = 0; f < parray.length; f++) {
-        if (parray[f]['type'] === ename) {
-            var procotolInfo = {
-                name: parray[f]['name'],
-                port: parray[f]['port']
-            };
+function buildHash(msg) {
+    let str = "";
+    for (let k in msg) {
+        if (msg.hasOwnProperty(k)) {
+            str += msg[k];
         }
     }
-    return procotolInfo;
-}
-
-
-function getTargetsForServices(source_array) {
-    let source_size = source_array.length;
-    let payloads = [];
-    for (let t = 0; t < source_size; t++) {
-        messageLogger.debug('Protocol ' + source_array[t]['protocol']);
-        let service_size = source_array[t]['services'].length;
-        for (let s = 0; s < service_size; s++) {
-            let tn = getNodes(appNodes.nodes, source_array[t]['services'][s]['name']);
-            let tn_size = tn.length;
-            if (tn_size > 0) {
-                for (let d = 0; d < tn_size; d++) {
-                    let protocolData = getElementDataByName(tn[d].protocols, source_array[t]['protocol']);
-                    var msg = {
-                        stime: moment().unix(),
-                        etime: moment(moment().add(source_array[t]['services'][s]['age'], 'seconds')).unix(),
-                        rdate: moment().format("YYYY/MM/DD HH:mm:00"),
-                        service: source_array[t]['services'][s]['name'],
-                        interval: source_array[t]['services'][s]['interval'],
-                        target: tn[d].address,
-                        name: protocolData['name'],
-                        port: protocolData['port']
-                    };
-                    messageLogger.info('Queue: ' + appConfig.amqp.queuename + source_array[t]['protocol'] + ' Msg: ' + JSON.stringify(msg));
-                    payloads.push(msg);
-                    singlePublish(appConfig.amqp.queuename + source_array[t]['protocol'], msg);
-                }
-//                batchPublish(appConfig.amqp.queuename + source_array[t]['protocol'], payloads);
-            } else {
-                messageLogger.info("No nodes have subscribed to the service: " + source_array[t]['services'][s]['name']);
-            }
-        }
-    }
+    let hash = crypto.createHash('sha256');
+    hash.update(str);
+    return hash.digest('hex');
 }
 
 function runService(interval) {
-    getTargetsForServices(getProtocolsByInterval(appProtocol.protocols, interval));
-}
-
-function inArray(needle, haystack) {
-    let length = haystack.length;
-    for (var i = 0; i < length; i++) {
-        if (haystack[i] === needle)
-            return true;
-    }
-    return false;
-}
-
-function runSummary() {
-    interval = moment().format("mm");
-    if (inArray(interval, appInternalServices.summary['intervals'])) {
-        genLogger.debug('Running summaries service for interval: ' + interval);
-        var lengthT = appInternalServices.summary.update_sql.length;
-        for (var i = 0; i < lengthT; i++) {
-            let newMsg = {
-                service: appInternalServices.summary['name'] + '___' + appInternalServices.summary.update_sql[i]['name'],
-                sql: appInternalServices.summary.update_sql[i]
-            };
-            publisher(appInternalServices.summary['queuename'], newMsg);
-        }
-    } else {
-        genLogger.debug('No summaries service for interval: ' + interval);
+    genLogger.info('Cron running for ' + interval + ' minute(s) interval');
+    let payloads = [];
+    let ci = 0;
+    if (runtimeList[interval]) {
+        runtimeList[interval].forEach(function (cronMsg) {
+            cronMsg.stime = moment().valueOf();
+            cronMsg.etime = moment(moment().add(Math.round((interval * 60) / 2), 'seconds')).valueOf();
+            cronMsg.rdate = moment().format("YYYY/MM/DD HH:mm:ss");
+            cronMsg.lifespan = ((interval * 60) / 2);
+            /* build hash string */
+            cronMsg.caid = buildHash(cronMsg);
+            payloads.push(cronMsg);
+            queueLogger.debug('publishQueueName ' + appConfig.amqp.publishQueueName + cronMsg.area);
+            singlePublish(appConfig.amqp.publishQueueName + cronMsg.area, cronMsg);
+            ci++;
+        });
+        queueLogger.info(ci + ' item(s) have been sent to the queue');
     }
 }
 
-function runReloadNodes() {
-    interval = moment().format("mm");
-    if (inArray(interval, appInternalServices.reloadnodes['intervals'])) {
-        genLogger.debug('Running reload node service for interval: ' + interval);
-        initLoadNodes();
-    } else {
-        genLogger.debug('No reload node service for interval: ' + interval);
-    }
-}
+loadServices();
+flattenServices();
+loadNodes();
+flattenNodes();
+buildServiceHost();
 
-function runUpdates() {
-    if (appInternalServices.summary['enabled']) {
-        runSummary();
-    }
-    if (appInternalServices.reloadnodes['enabled']) {
-        runReloadNodes();
-    }
-}
 
-initLoadNodes();
-cron.schedule('* * * * *', function () {
+
+//cron.schedule('*/5 * * * * *', function () {
+//    genLogger.debug('Running cron (*/5 * * * * *)');
+//    runService('5');
+//});
+
+//cron.schedule('*/10 * * * * *', function () {
+//    genLogger.debug('Running cron (*/10 * * * * *)');
+//    runService('10');
+//});
+
+//cron.schedule('*/20 * * * * *', function () {
+//    genLogger.debug('Running cron (*/20 * * * * *)');
+//    runService('20');
+//});
+
+//cron.schedule('*/30 * * * * *', function () {
+//    genLogger.debug('Running cron (*/30 * * * * *)');
+//    runService('30');
+//});
+
+//cron.schedule('*/15 * * * * *', function () {
+//    genLogger.debug('Running cron (*/15 * * * * *)');
+//    runService('15');
+//});
+
+cron.schedule('*/1 * * * *', function () {
     strd = moment().format("YYYY/MM/DD HH:mm:ss.SSS");
-    genLogger.info('Running cron (* * * * *)');
-    runUpdates();
+    genLogger.debug('Running cron (*/1 * * * *)');
     runService('1');
 });
+
 cron.schedule('*/5 * * * *', function () {
-    genLogger.info('Running cron (*/5 * * * *)');
+    genLogger.debug('Running cron (*/5 * * * *)');
     runService('5');
 });
+
 cron.schedule('*/10 * * * *', function () {
-    genLogger.info('Running cron (*/10 * * * *)');
+    genLogger.debug('Running cron (*/10 * * * *)');
     runService('10');
 });
+
 cron.schedule('*/15 * * * *', function () {
-    genLogger.info('Running cron (*/15 * * * *)');
+    genLogger.debug('Running cron (*/15 * * * *)');
     runService('15');
 });
+ 

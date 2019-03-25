@@ -1,102 +1,87 @@
 {
     "nodes": [{
-            "name": "Device 1",
-            "enabled": true,
-            "ip_address": "192.168.100.1",
-            "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotiksystem"],
-            "protocols": [{
-                    "type": "snmp",
-                    "name": "public",
-                    "port": 161
+            "name": "Demo device",
+            "active": true,
+            "ip_address": "devnsw",
+            "subscriptions": [{
+                    "name": "snmpstats05min",
+                    "active": false
                 }, {
-                    "type": "ssh",
-                    "name": "ssh_user",
-                    "port": 22
+                    "name": "snmpstats10min",
+                    "active": false
+                }],
+            "protocols": [{
+                    "name": "snmp",
+                    "parameters": {
+                        "name": "asuran",
+                        "port": 161
+                    }
+                }, {
+                    "name": "ssh",
+                    "parameters": {
+                        "name": "guest",
+                        "port": 22
+                    }
                 }]
         }, {
-            "name": "Device 2",
-            "enabled": true,
-            "ip_address": "192.168.100.2",
-            "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotiksystem", "mikrotik_ap_client"],
-            "protocols": [{
-                    "type": "snmp",
-                    "name": "public",
-                    "port": 161
+            "name": "Service Worker",
+            "active": true,
+            "ip_address": "127.0.0.1",
+            "subscriptions": [{
+                    "name": "dnsmonitoring01min",
+                    "active": false
                 }, {
-                    "type": "ssh",
-                    "name": "ssh_user",
-                    "port": 22
-                }]
-        }, {
-            "name": "Device 3",
-            "enabled": true,
-            "ip_address": "192.168.100.3",
-            "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotiksystem"],
-            "protocols": [{
-                    "type": "snmp",
-                    "name": "public",
-                    "port": 161
+                    "name": "httpmonitoring01min",
+                    "active": false
                 }, {
-                    "type": "ssh",
-                    "name": "ssh_user",
-                    "port": 22
-                }]
-        }, {
-            "name": "Device 4",
-            "enabled": true,
-            "ip_address": "192.168.100.4",
-            "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotiksystem", "mikrotik_ap_client"],
-            "protocols": [{
-                    "type": "snmp",
-                    "name": "public",
-                    "port": 161
+                    "name": "pingmonitoring01min",
+                    "active": true
                 }, {
-                    "type": "ssh",
-                    "name": "ssh_user",
-                    "port": 22
-                }]
-        }, {
-            "name": "Device 5",
-            "enabled": true,
-            "ip_address": "192.168.100.5",
-            "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotiksystem", "mikrotik_ap_client"],
-            "protocols": [{
-                    "type": "snmp",
-                    "name": "public",
-                    "port": 161
+                    "name": "mysqlcmd05min",
+                    "active": false
                 }, {
-                    "type": "ssh",
-                    "name": "ssh_user",
-                    "port": 22
-                }]
-        }, {
-            "name": "Device 6",
-            "enabled": true,
-            "ip_address": "192.168.72.16",
-            "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotiksystem"],
-            "protocols": [{
-                    "type": "snmp",
-                    "name": "asuran",
-                    "port": 161
+                    "name": "traceroutemonitoring01min",
+                    "active": true
                 }, {
-                    "type": "ssh",
-                    "name": "ssh_user",
-                    "port": 22
-                }]
-        }, {
-            "name": "Device 7",
-            "enabled": true,
-            "ip_address": "192.168.72.254",
-            "services": ["ifmib", "host_resources_processor", "host_resources_storage", "mikrotik_queuetree"],
+                    "name": "mysqlcmd15min",
+                    "active": false
+                }],
             "protocols": [{
-                    "type": "snmp",
-                    "name": "public",
-                    "port": 161
+                    "name": "snmp",
+                    "parameters": {
+                        "name": "public",
+                        "port": 161
+                    }
                 }, {
-                    "type": "ssh",
-                    "name": "ssh_user",
-                    "port": 22
+                    "name": "ssh",
+                    "parameters": {
+                        "name": "guest",
+                        "password": "password",
+                        "port": 22
+                    }
+                }, {
+                    "name": "mysql",
+                    "parameters": {
+                        "name": "guest",
+                        "password": "password",
+                        "port": 3306
+                    }
+                }, {
+                    "name": "dns",
+                    "parameters": {
+                        "type": "ipv4"
+                    }
+                }, {
+                    "name": "ping",
+                    "parameters": {
+                        "type": "ipv4",
+                        "count": 4
+                    }
+                }, {
+                    "name": "traceroute",
+                    "parameters": {
+                        "type": "ipv4"
+                    }
                 }]
-        }
-    ]
+        }]
 }

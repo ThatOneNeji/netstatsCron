@@ -1,0 +1,305 @@
+{
+    "config": [
+        {
+            "protocol": "snmp",
+            "parameters": [
+                {
+                    "name": "public",
+                    "port": 161
+                }
+            ],
+            "area": "stats",
+            "active": false,
+            "services": [
+                {
+                    "group": "snmpstats05min",
+                    "interval": 5,
+                    "active": true,
+                    "inventory": [
+                        {
+                            "name": "ifmib_interfaces",
+                            "active": true
+                        },
+                        {
+                            "name": "host_resources_processor",
+                            "active": true
+                        },
+                        {
+                            "name": "host_resources_storage",
+                            "active": true
+                        },
+                        {
+                            "name": "mikrotiksystem",
+                            "active": true
+                        },
+                        {
+                            "name": "mikrotik_interfacestats",
+                            "active": true
+                        },
+                        {
+                            "name": "ifhcmib_interfaces",
+                            "active": true
+                        }
+                    ]
+                },
+                {
+                    "group": "snmpstats10min",
+                    "interval": 10,
+                    "active": true,
+                    "inventory": [
+                        {
+                            "name": "mikrotik_queuetree",
+                            "active": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "protocol": "dns",
+            "parameters": ["ipv4"],
+            "area": "monitoring",
+            "active": false,
+            "services": [
+                {
+                    "group": "dnsmonitoring01min",
+                    "interval": 1,
+                    "active": true,
+                    "inventory": [
+                        {
+                            "name": "8.8.8.8",
+                            "active": true,
+                            "electives": [
+                                {
+                                    "name": "www.google.com",
+                                    "active": true
+                                },
+                                {
+                                    "name": "www.yahoo.com",
+                                    "active": true
+                                }
+                            ]
+                        },
+                        {
+                            "name": "8.8.4.4",
+                            "active": true,
+                            "electives": [
+                                {
+                                    "name": "www.google.com",
+                                    "active": true
+                                },
+                                {
+                                    "name": "www.yahoo.com",
+                                    "active": true
+                                }
+                            ]
+                        },
+                        {
+                            "name": "1.1.1.1",
+                            "active": true,
+                            "electives": [
+                                {
+                                    "name": "www.google.com",
+                                    "active": true
+                                },
+                                {
+                                    "name": "www.yahoo.com",
+                                    "active": true
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "protocol": "http",
+            "parameters": [],
+            "area": "monitoring",
+            "active": false,
+            "services": [
+                {
+                    "group": "httpmonitoring01min",
+                    "interval": 1,
+                    "active": true,
+                    "inventory": [
+                        {
+                            "name": "www.google.com",
+                            "active": true
+                        },
+                        {
+                            "name": "www.yahoo.com",
+                            "active": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "protocol": "ping",
+            "parameters": [{
+                    "type": "ipv4",
+                    "count": 4
+                }],
+            "area": "monitoring",
+            "active": true,
+            "services": [
+                {
+                    "group": "pingmonitoring01min",
+                    "interval": 1,
+                    "active": true,
+                    "inventory": [
+                        {
+                            "name": "127.0.0.1",
+                            "active": true
+                        },
+                        {
+                            "name": "asgard",
+                            "active": true
+                        },
+                        {
+                            "name": "souleater",
+                            "active": true
+                        },
+                        {
+                            "name": "orphantears",
+                            "active": true
+                        },
+                        {
+                            "name": "asuran",
+                            "active": true
+                        },
+                        {
+                            "name": "morty",
+                            "active": true
+                        },
+                        {
+                            "name": "rick",
+                            "active": true
+                        },
+                        {
+                            "name": "lanteans",
+                            "active": true
+                        },
+                        {
+                            "name": "www.google.com",
+                            "active": true
+                        },
+                        {
+                            "name": "chomei",
+                            "active": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "protocol": "traceroute",
+            "parameters": ["ipv4"],
+            "area": "monitoring",
+            "active": true,
+            "services": [
+                {
+                    "group": "traceroutemonitoring01min",
+                    "interval": 1,
+                    "active": false,
+                    "inventory": [
+                        {
+                            "name": "127.0.0.1",
+                            "active": true
+                        },
+                        {
+                            "name": "chomei",
+                            "active": true
+                        },
+                        {
+                            "name": "www.google.com",
+                            "active": false
+                        }
+                    ]
+                }, {
+                    "group": "traceroutemonitoring10min",
+                    "interval": 10,
+                    "active": false,
+                    "inventory": [
+                        {
+                            "name": "asgard",
+                            "active": true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "protocol": "mysql",
+            "parameters": [],
+            "area": "cmd",
+            "active": false,
+            "services": [
+                {
+                    "group": "mysqlcmd05min",
+                    "interval": 5,
+                    "active": true,
+                    "inventory": [
+                        {
+                            "name": "update_1",
+                            "active": true,
+                            "electives": [
+                                {
+                                    "name": "select now() update1 from dual ;",
+                                    "active": true
+                                }
+                            ]
+                        },
+                        {
+                            "name": "update_2",
+                            "active": true,
+                            "electives": [
+                                {
+                                    "name": "select now() update2 from dual ;",
+                                    "active": true
+                                }
+                            ]
+                        },
+                        {
+                            "name": "update_3",
+                            "active": true,
+                            "electives": [
+                                {
+                                    "name": "select now() update3 from dual ;",
+                                    "active": true
+                                }
+                            ]
+                        },
+                        {
+                            "name": "update_4",
+                            "active": true,
+                            "electives": [
+                                {
+                                    "name": "select now() update4 from dual ;",
+                                    "active": true
+                                }
+                            ]
+                        }
+                    ]
+                }, {
+                    "group": "mysqlcmd15min",
+                    "interval": 15,
+                    "active": true,
+                    "inventory": [
+                        {
+                            "name": "db_heart_beat",
+                            "active": true,
+                            "electives": [
+                                {
+                                    "name": "select now() db_heart_beat from dual ;",
+                                    "active": true
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
