@@ -3,8 +3,8 @@
         "server": "192.168.72.23",
         "user": "netstatsNodeCron",
         "password": "netstatsNodeCron",
-        "consumeQueueName": "netstats/",
-        "publishQueueName": "netstats/cron/"
+        "consumeQueueName": "netstats_dev/",
+        "publishQueueName": "netstats_dev/cron/"
     },
     "snmp": {
         "community": "asuran",

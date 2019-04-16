@@ -142,7 +142,7 @@
                     "count": 4
                 }],
             "area": "monitoring",
-            "active": true,
+            "active": false,
             "services": [
                 {
                     "group": "pingmonitoring01min",
@@ -202,19 +202,47 @@
                 {
                     "group": "traceroutemonitoring01min",
                     "interval": 1,
-                    "active": false,
+                    "active": true,
                     "inventory": [
                         {
                             "name": "127.0.0.1",
                             "active": true
                         },
                         {
-                            "name": "chomei",
+                            "name": "10.100.0.1",
                             "active": true
                         },
                         {
-                            "name": "www.google.com",
-                            "active": false
+                            "name": "10.100.0.2",
+                            "active": true
+                        },
+                        {
+                            "name": "10.100.0.3",
+                            "active": true
+                        },
+                        {
+                            "name": "10.100.0.4",
+                            "active": true
+                        },
+                        {
+                            "name": "10.100.0.5",
+                            "active": true
+                        },
+                        {
+                            "name": "10.100.0.6",
+                            "active": true
+                        },
+                        {
+                            "name": "10.100.0.7",
+                            "active": true
+                        },
+                        {
+                            "name": "10.100.0.8",
+                            "active": true
+                        },
+                        {
+                            "name": "10.100.0.9",
+                            "active": true
                         }
                     ]
                 }, {
