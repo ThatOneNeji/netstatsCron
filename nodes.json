@@ -1,87 +1,644 @@
 {
     "nodes": [{
-            "name": "Demo device",
-            "active": true,
-            "ip_address": "devnsw",
-            "subscriptions": [{
-                    "name": "snmpstats05min",
-                    "active": false
-                }, {
-                    "name": "snmpstats10min",
-                    "active": false
-                }],
-            "protocols": [{
-                    "name": "snmp",
+            "name": "Core network devices (Mikrotik)",
+            "active": false,
+            "addresses": [
+                "192.168.100.0/29"
+            ],
+            "protocols": {
+                "snmp": {
+                    "subscriptions": [{
+                            "name": "ifmib_interfaces",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "host_resources_processor",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "host_resources_storage",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotiksystem",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_interfacestats",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "ifhcmib_interfaces",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_health",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_ap",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_ap_clients",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_queue_tree",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "snmp_system",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_cdp",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        }
+                    ],
                     "parameters": {
                         "name": "asuran",
                         "port": 161
-                    }
-                }, {
-                    "name": "ssh",
+                    },
+                    "active": false
+                },
+                "http": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 5
+                        }
+                    }],
+                    "active": false
+                },
+                "ping": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 5
+                        }
+                    }],
+                    "active": false
+                },
+                "mtr": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 5
+                        }
+                    }],
+                    "active": false
+                },
+                "traceroute": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 5
+                        }
+                    }],
+                    "active": false
+                }
+            }
+        },
+        {
+            "name": "Lab MESH network (Mikrotik)",
+            "active": false,
+            "addresses": [
+                "10.100.0.0/29"
+            ],
+            "protocols": {
+                "snmp": {
+                    "subscriptions": [{
+                            "name": "ifmib_interfaces",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "host_resources_processor",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "host_resources_storage",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotiksystem",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_interfacestats",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "ifhcmib_interfaces",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_health",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_ap",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_ap_clients",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_queue_tree",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "snmp_system",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_cdp",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        }
+                    ],
                     "parameters": {
-                        "name": "guest",
-                        "port": 22
-                    }
-                }]
-        }, {
-            "name": "Service Worker",
-            "active": true,
-            "ip_address": "127.0.0.1",
-            "subscriptions": [{
-                    "name": "dnsmonitoring01min",
-                    "active": false
-                }, {
-                    "name": "httpmonitoring01min",
-                    "active": false
-                }, {
-                    "name": "pingmonitoring01min",
-                    "active": true
-                }, {
-                    "name": "mysqlcmd05min",
-                    "active": false
-                }, {
-                    "name": "traceroutemonitoring01min",
-                    "active": true
-                }, {
-                    "name": "mysqlcmd15min",
-                    "active": false
-                }],
-            "protocols": [{
-                    "name": "snmp",
-                    "parameters": {
-                        "name": "public",
+                        "name": "asuran",
                         "port": 161
-                    }
-                }, {
-                    "name": "ssh",
+                    },
+                    "active": false
+                },
+                "http": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 5
+                        }
+                    }],
+                    "active": false
+                },
+                "ping": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 5
+                        }
+                    }],
+                    "active": false
+                },
+                "mtr": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 5
+                        }
+                    }],
+                    "active": false
+                },
+                "traceroute": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 5
+                        }
+                    }],
+                    "active": false
+                }
+            }
+        },
+        {
+            "name": "Lab CLIENT network (Mikrotik)",
+            "active": false,
+            "addresses": [
+                "10.0.80.1",
+                "10.0.80.2",
+                "10.0.80.3",
+                "10.0.80.4",
+                "10.0.80.5",
+                "10.0.80.6",
+                "10.0.80.7",
+                "10.0.80.8",
+                "10.0.80.9",
+                "10.0.80.10"
+            ],
+            "protocols": {
+                "snmp": {
+                    "subscriptions": [{
+                            "name": "ifmib_interfaces",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "host_resources_processor",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "host_resources_storage",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotiksystem",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_interfacestats",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "ifhcmib_interfaces",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_health",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_ap",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_ap_clients",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_queue_tree",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "snmp_system",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_cdp",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        }
+                    ],
                     "parameters": {
-                        "name": "guest",
-                        "password": "password",
-                        "port": 22
-                    }
-                }, {
-                    "name": "mysql",
+                        "name": "asuran",
+                        "port": 161
+                    },
+                    "active": false
+                },
+                "http": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 5
+                        }
+                    }],
+                    "active": false
+                },
+                "ping": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 5
+                        }
+                    }],
+                    "active": false
+                },
+                "mtr": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 5
+                        }
+                    }],
+                    "active": false
+                },
+                "traceroute": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 5
+                        }
+                    }],
+                    "active": false
+                }
+            }
+        },
+        {
+            "name": "WUGMS Devices",
+            "active": false,
+            "addresses": [
+                "172.16.250.19",
+                "172.16.250.20",
+                "172.16.119.12",
+                "172.16.119.12",
+                "172.16.119.22",
+                "172.16.119.26"
+            ],
+            "protocols": {
+                "snmp": {
+                    "subscriptions": [{
+                            "name": "ifmib_interfaces",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "host_resources_processor",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "host_resources_storage",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotiksystem",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_interfacestats",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "ifhcmib_interfaces",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_health",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_ap",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_ap_clients",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_queue_tree",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 60
+                            }
+                        },
+                        {
+                            "name": "snmp_system",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        },
+                        {
+                            "name": "mikrotik_cdp",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
+                        }
+                    ],
                     "parameters": {
-                        "name": "guest",
-                        "password": "password",
-                        "port": 3306
-                    }
-                }, {
-                    "name": "dns",
-                    "parameters": {
-                        "type": "ipv4"
-                    }
-                }, {
-                    "name": "ping",
-                    "parameters": {
-                        "type": "ipv4",
-                        "count": 4
-                    }
-                }, {
-                    "name": "traceroute",
-                    "parameters": {
-                        "type": "ipv4"
-                    }
-                }]
-        }]
+                        "name": "jawugsnmp",
+                        "port": 161
+                    },
+                    "active": false
+                },
+                "http": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 5
+                        }
+                    }],
+                    "active": false
+                },
+                "ping": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 1
+                        }
+                    }],
+                    "active": false
+                },
+                "mtr": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 5
+                        }
+                    }],
+                    "active": false
+                },
+                "traceroute": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 5
+                        }
+                    }],
+                    "active": false
+                }
+            }
+        },
+        {
+            "name": "WUGMS DNS Servers",
+            "active": false,
+            "addresses": [
+                "172.16.250.19",
+                "172.16.250.20",
+                "172.16.250.250"
+            ],
+            "protocols": {
+                "nslookup": {
+                    "subscriptions": [{
+                        "name": "JAWUG1",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 1
+                        }
+                    }],
+                    "active": false
+                }
+            }
+        },
+        {
+            "name": "CORE DNS Servers",
+            "active": false,
+            "addresses": [
+                "192.168.72.254",
+                "192.168.100.253"
+            ],
+            "protocols": {
+                "nslookup": {
+                    "subscriptions": [{
+                        "name": "Local1",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 1
+                        }
+                    }],
+                    "active": false
+                }
+            }
+        },
+        {
+            "name": "TESTING DNS Servers",
+            "active": true,
+            "addresses": [
+                "192.168.72.254",
+                "172.16.250.19",
+                "172.16.119.22",
+                "172.16.119.35"
+            ],
+            "protocols": {
+                "nslookup": {
+                    "subscriptions": [{
+                        "name": "TESTING",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 1
+                        }
+                    }],
+                    "active": true
+                }
+            }
+        }
+    ]
 }

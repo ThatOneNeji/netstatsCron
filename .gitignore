@@ -6,3 +6,15 @@
 # Ignore coverage results
 /coverage/
 .coveralls.yml
+/_backup
+/docs
+/nodes_old.json
+/services_old.json
+lib/_tmp/__common.js
+lib/_tmp/__jsdoc_definitions.js
+lib/_tmp/parsersnmpscalar.js
+/lib/package-lock.json
+/lib/_tmp
+/lib/node_modules
+/_backup
+/__lib

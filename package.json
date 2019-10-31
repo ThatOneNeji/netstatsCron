@@ -1,25 +1,32 @@
 {
-  "name": "netstatsNodeCron",
-  "version": "0.5.0",
-  "keywords": [
-    "util",
-    "functional",
-    "server",
-    "client",
-    "browser"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ThatOneNeji/netstatsNodeCron.git"
-  },
-  "description": "Cron management for SNMP polling",
-  "license": "MIT",
-  "author": "ThatOneNeji",
-  "contributors": [],
-  "dependencies": {
-    "amqplib": "^0.5.3",
-    "log4js": "^4.0.2",
-    "moment": "^2.24.0",
-    "node-cron": "^2.0.3"
-  }
+    "name": "netstatsNodeCron",
+    "version": "2.0.1",
+    "keywords": [
+        "cron",
+        "scheduler"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ThatOneNeji/netstatsNodeCron.git"
+    },
+    "description": "Cron management for Netstats functions",
+    "license": "MIT",
+    "author": "ThatOneNeji",
+    "contributors": [],
+    "dependencies": {
+        "amqp-connection-manager": "latest",
+        "amqplib": "latest",
+        "cron": "latest",
+        "log4js": "latest",
+        "moment": "latest",
+        "netmask": "latest"
+    },
+    "main": "server.js",
+    "scripts": {
+        "postinstall": "./node_modules/.bin/jsdoc -d docs server.js"
+    },
+    "devDependencies": {
+        "eslint": "^6.4.0",
+        "jsdoc": "^3.6.3"
+    }
 }

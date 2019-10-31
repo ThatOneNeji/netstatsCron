@@ -1,0 +1,10 @@
+{
+    "dependencies": {
+        "amqp-connection-manager": "latest",
+        "amqplib": "latest",
+        "cron": "latest",
+        "log4js": "latest",
+        "moment": "latest",
+        "netmask": "latest"
+    }
+}

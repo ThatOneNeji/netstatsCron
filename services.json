@@ -1,112 +1,250 @@
 {
-    "config": [
-        {
+    "services": [{
             "protocol": "snmp",
-            "parameters": [
-                {
-                    "name": "public",
-                    "port": 161
-                }
-            ],
             "area": "stats",
-            "active": false,
-            "services": [
-                {
-                    "group": "snmpstats05min",
-                    "interval": 5,
+            "active": true,
+            "parameters": {
+                "name": "public",
+                "port": 161
+            },
+            "inventory": [{
+                    "name": "ifmib_interfaces",
                     "active": true,
-                    "inventory": [
-                        {
-                            "name": "ifmib_interfaces",
-                            "active": true
+                    "contents": {
+                        "mib_name": "ifTable",
+                        "oid_base": ".1.3.6.1.2.1.2.2.1",
+                        "description": "An entry containing management information applicable to a particular interface"
+                    }
+                },
+                {
+                    "name": "host_resources_processor",
+                    "active": true,
+                    "contents": {
+                        "mib_name": "hrProcessorTable",
+                        "oid_base": ".1.3.6.1.2.1.25.3.3.1",
+                        "description": "A (conceptual) entry for one processor contained by the host.  The hrDeviceIndex in the index represents the entry in the hrDeviceTable that corresponds to the hrProcessorEntry."
+                    }
+                },
+                {
+                    "name": "host_resources_storage",
+                    "active": true,
+                    "contents": {
+                        "mib_name": "hrStorageTable",
+                        "oid_base": ".1.3.6.1.2.1.25.2.3.1",
+                        "description": "An entry for one logical storage area on the host."
+                    }
+                },
+                {
+                    "name": "mikrotiksystem",
+                    "active": true,
+                    "contents": {
+                        "mib_name": "mtxrSystem",
+                        "oid_base": ".1.3.6.1.4.1.14988.1.1.7",
+                        "description": "Mikrotik device system information"
+                    }
+                },
+                {
+                    "name": "mikrotik_interfacestats",
+                    "active": true,
+                    "contents": {
+                        "mib_name": "mtxrInterfaceStatsTable",
+                        "oid_base": ".1.3.6.1.4.1.14988.1.1.14.1.1",
+                        "description": "Mikrotik interface data"
+                    }
+                },
+                {
+                    "name": "ifhcmib_interfaces",
+                    "active": true,
+                    "contents": {
+                        "mib_name": "ifXTable",
+                        "oid_base": ".1.3.6.1.2.1.31.1.1.1",
+                        "description": "An entry containing additional management information applicable to a particular interface."
+                    }
+                },
+                {
+                    "name": "mikrotik_health",
+                    "active": true,
+                    "contents": {
+                        "mib_name": "mtxrHealth",
+                        "oid_base": ".1.3.6.1.4.1.14988.1.1.3",
+                        "description": "Health of mikrotik device."
+                    }
+                },
+                {
+                    "name": "mikrotik_ap",
+                    "active": true,
+                    "contents": {
+                        "mib_name": "mtxrWlApTable",
+                        "oid_base": ".1.3.6.1.4.1.14988.1.1.1.3.1",
+                        "description": "Data for Mikrotik Access Points"
+                    }
+                },
+                {
+                    "name": "mikrotik_ap_clients",
+                    "active": true,
+                    "contents": {
+                        "mib_name": "mtxrWlRtabTable",
+                        "oid_base": ".1.3.6.1.4.1.14988.1.1.1.2.1",
+                        "description": "Data of clients connected to the Access Point."
+                    }
+                },
+                {
+                    "name": "mikrotik_queue_tree",
+                    "active": true,
+                    "contents": {
+                        "mib_name": "mtxrQueueTreeTable",
+                        "oid_base": ".1.3.6.1.4.1.14988.1.1.2.2.1",
+                        "description": "Data from the queu tree."
+                    }
+                },
+                {
+                    "name": "mikrotik_License",
+                    "active": true,
+                    "contents": {
+                        "mib_name": "mtxrLicense",
+                        "oid_base": ".1.3.6.1.4.1.14988.1.1.4",
+                        "description": "License information."
+                    }
+                },
+                {
+                    "name": "snmp_system",
+                    "active": true,
+                    "contents": {
+                        "mib_name": "system",
+                        "oid_base": ".1.3.6.1.2.1.1",
+                        "description": "system information."
+                    }
+                }
+            ]
+        },
+        {
+            "protocol": "dig",
+            "area": "monitoring",
+            "active": true,
+            "parameters": {
+                "name": "ipv4"
+            },
+            "inventory": [{
+                    "name": "International1",
+                    "active": false,
+                    "contents": [{
+                            "address": "www.google.com"
                         },
                         {
-                            "name": "host_resources_processor",
-                            "active": true
-                        },
-                        {
-                            "name": "host_resources_storage",
-                            "active": true
-                        },
-                        {
-                            "name": "mikrotiksystem",
-                            "active": true
-                        },
-                        {
-                            "name": "mikrotik_interfacestats",
-                            "active": true
-                        },
-                        {
-                            "name": "ifhcmib_interfaces",
-                            "active": true
+                            "address": "www.lego.com"
                         }
                     ]
                 },
                 {
-                    "group": "snmpstats10min",
-                    "interval": 10,
+                    "name": "Local1",
                     "active": true,
-                    "inventory": [
+                    "contents": [{
+                            "address": "www.coolideas.co.za"
+                        },
                         {
-                            "name": "mikrotik_queuetree",
-                            "active": true
+                            "address": "www.mindthespeed.co.za"
+                        },
+                        {
+                            "address": "afrihost.com"
+                        },
+                        {
+                            "address": "vumatel.co.za"
+                        }
+                    ]
+                },
+                {
+                    "name": "International2",
+                    "active": false,
+                    "contents": [{
+                        "address": "www.amazon.com"
+                    }]
+                },
+                {
+                    "name": "JAWUG1",
+                    "active": true,
+                    "contents": [{
+                            "address": "wugms.jawug"
+                        },
+                        {
+                            "address": "rbcp.jawug"
+                        },
+                        {
+                            "address": "lo0.pb.jawug"
                         }
                     ]
                 }
             ]
         },
         {
-            "protocol": "dns",
-            "parameters": ["ipv4"],
+            "protocol": "nslookup",
             "area": "monitoring",
-            "active": false,
-            "services": [
+            "active": true,
+            "parameters": {
+                "name": "ipv4"
+            },
+            "inventory": [{
+                    "name": "International1",
+                    "active": false,
+                    "contents": [{
+                            "address": "www.google.com"
+                        },
+                        {
+                            "address": "www.lego.com"
+                        }
+                    ]
+                },
                 {
-                    "group": "dnsmonitoring01min",
-                    "interval": 1,
+                    "name": "Local1",
                     "active": true,
-                    "inventory": [
-                        {
-                            "name": "8.8.8.8",
-                            "active": true,
-                            "electives": [
-                                {
-                                    "name": "www.google.com",
-                                    "active": true
-                                },
-                                {
-                                    "name": "www.yahoo.com",
-                                    "active": true
-                                }
-                            ]
+                    "contents": [{
+                            "address": "www.coolideas.co.za"
                         },
                         {
-                            "name": "8.8.4.4",
-                            "active": true,
-                            "electives": [
-                                {
-                                    "name": "www.google.com",
-                                    "active": true
-                                },
-                                {
-                                    "name": "www.yahoo.com",
-                                    "active": true
-                                }
-                            ]
+                            "address": "www.mindthespeed.co.za"
                         },
                         {
-                            "name": "1.1.1.1",
-                            "active": true,
-                            "electives": [
-                                {
-                                    "name": "www.google.com",
-                                    "active": true
-                                },
-                                {
-                                    "name": "www.yahoo.com",
-                                    "active": true
-                                }
-                            ]
+                            "address": "afrihost.com"
+                        },
+                        {
+                            "address": "vumatel.co.za"
+                        }
+                    ]
+                },
+                {
+                    "name": "International2",
+                    "active": false,
+                    "contents": [{
+                        "address": "www.amazon.com"
+                    }]
+                },
+                {
+                    "name": "JAWUG1",
+                    "active": true,
+                    "contents": [{
+                            "address": "wugms.jawug"
+                        },
+                        {
+                            "address": "rbcp.jawug"
+                        },
+                        {
+                            "address": "lo0.pb.jawug"
+                        }
+                    ]
+                },
+                {
+                    "name": "TESTING",
+                    "active": true,
+                    "contents": [{
+                            "address": "www.google.com"
+                        },
+                        {
+                            "address": "rbcp.jawug"
+                        },
+                        {
+                            "address": "www.bwc5y5t3m.n3t"
+                        },
+                        {
+                            "address": "mindthespeed.co.za"
                         }
                     ]
                 }
@@ -114,218 +252,105 @@
         },
         {
             "protocol": "http",
-            "parameters": [],
+            "area": "monitoring",
+            "active": true,
+            "parameters": {
+                "path": "/",
+                "port": 80
+            },
+            "inventory": [{
+                "name": "general",
+                "active": true,
+                "contents": {}
+            }]
+        },
+        {
+            "protocol": "https",
             "area": "monitoring",
             "active": false,
-            "services": [
-                {
-                    "group": "httpmonitoring01min",
-                    "interval": 1,
-                    "active": true,
-                    "inventory": [
-                        {
-                            "name": "www.google.com",
-                            "active": true
-                        },
-                        {
-                            "name": "www.yahoo.com",
-                            "active": true
-                        }
-                    ]
-                }
-            ]
+            "parameters": {
+                "path": "/",
+                "port": 443
+            },
+            "inventory": [{
+                "name": "general",
+                "active": true,
+                "contents": {}
+            }]
         },
         {
             "protocol": "ping",
-            "parameters": [{
-                    "type": "ipv4",
-                    "count": 4
-                }],
+            "area": "monitoring",
+            "active": true,
+            "parameters": {
+                "type": "ipv4",
+                "count": 20
+            },
+            "inventory": [{
+                "name": "general",
+                "active": true,
+                "contents": {}
+            }]
+        },
+        {
+            "protocol": "mtr",
             "area": "monitoring",
             "active": false,
-            "services": [
-                {
-                    "group": "pingmonitoring01min",
-                    "interval": 1,
-                    "active": true,
-                    "inventory": [
-                        {
-                            "name": "127.0.0.1",
-                            "active": true
-                        },
-                        {
-                            "name": "asgard",
-                            "active": true
-                        },
-                        {
-                            "name": "souleater",
-                            "active": true
-                        },
-                        {
-                            "name": "orphantears",
-                            "active": true
-                        },
-                        {
-                            "name": "asuran",
-                            "active": true
-                        },
-                        {
-                            "name": "morty",
-                            "active": true
-                        },
-                        {
-                            "name": "rick",
-                            "active": true
-                        },
-                        {
-                            "name": "lanteans",
-                            "active": true
-                        },
-                        {
-                            "name": "www.google.com",
-                            "active": true
-                        },
-                        {
-                            "name": "chomei",
-                            "active": true
-                        }
-                    ]
-                }
-            ]
+            "parameters": {
+                "type": "ipv4",
+                "count": 4
+            },
+            "inventory": [{
+                "name": "general",
+                "active": true,
+                "contents": {}
+            }]
         },
         {
             "protocol": "traceroute",
-            "parameters": ["ipv4"],
             "area": "monitoring",
             "active": true,
-            "services": [
-                {
-                    "group": "traceroutemonitoring01min",
-                    "interval": 1,
-                    "active": true,
-                    "inventory": [
-                        {
-                            "name": "127.0.0.1",
-                            "active": true
-                        },
-                        {
-                            "name": "10.100.0.1",
-                            "active": true
-                        },
-                        {
-                            "name": "10.100.0.2",
-                            "active": true
-                        },
-                        {
-                            "name": "10.100.0.3",
-                            "active": true
-                        },
-                        {
-                            "name": "10.100.0.4",
-                            "active": true
-                        },
-                        {
-                            "name": "10.100.0.5",
-                            "active": true
-                        },
-                        {
-                            "name": "10.100.0.6",
-                            "active": true
-                        },
-                        {
-                            "name": "10.100.0.7",
-                            "active": true
-                        },
-                        {
-                            "name": "10.100.0.8",
-                            "active": true
-                        },
-                        {
-                            "name": "10.100.0.9",
-                            "active": true
-                        }
-                    ]
-                }, {
-                    "group": "traceroutemonitoring10min",
-                    "interval": 10,
-                    "active": false,
-                    "inventory": [
-                        {
-                            "name": "asgard",
-                            "active": true
-                        }
-                    ]
-                }
-            ]
+            "parameters": {
+                "name": "ipv4"
+            },
+            "inventory": [{
+                "name": "general",
+                "active": true,
+                "contents": {}
+            }]
         },
         {
             "protocol": "mysql",
-            "parameters": [],
             "area": "cmd",
             "active": false,
-            "services": [
+            "parameters": {},
+            "inventory": [{
+                    "name": "update_1",
+                    "active": true,
+                    "contents": {
+                        "name": "select now() update1 from dual ;"
+                    }
+                },
                 {
-                    "group": "mysqlcmd05min",
-                    "interval": 5,
+                    "name": "update_2",
                     "active": true,
-                    "inventory": [
-                        {
-                            "name": "update_1",
-                            "active": true,
-                            "electives": [
-                                {
-                                    "name": "select now() update1 from dual ;",
-                                    "active": true
-                                }
-                            ]
-                        },
-                        {
-                            "name": "update_2",
-                            "active": true,
-                            "electives": [
-                                {
-                                    "name": "select now() update2 from dual ;",
-                                    "active": true
-                                }
-                            ]
-                        },
-                        {
-                            "name": "update_3",
-                            "active": true,
-                            "electives": [
-                                {
-                                    "name": "select now() update3 from dual ;",
-                                    "active": true
-                                }
-                            ]
-                        },
-                        {
-                            "name": "update_4",
-                            "active": true,
-                            "electives": [
-                                {
-                                    "name": "select now() update4 from dual ;",
-                                    "active": true
-                                }
-                            ]
-                        }
-                    ]
-                }, {
-                    "group": "mysqlcmd15min",
-                    "interval": 15,
+                    "contents": {
+                        "name": "select now() update2 from dual ;"
+                    }
+                },
+                {
+                    "name": "update_3",
                     "active": true,
-                    "inventory": [
-                        {
-                            "name": "db_heart_beat",
-                            "active": true,
-                            "electives": [
-                                {
-                                    "name": "select now() db_heart_beat from dual ;",
-                                    "active": true
-                                }
-                            ]
-                        }
-                    ]
+                    "contents": {
+                        "name": "select now() update3 from dual ;"
+                    }
+                },
+                {
+                    "name": "update_4",
+                    "active": true,
+                    "contents": {
+                        "name": "select now() update4 from dual ;"
+                    }
                 }
             ]
         }

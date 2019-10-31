@@ -1,0 +1,64 @@
+{
+    "messagebrokers": [{
+            "host": "192.168.72.1",
+            "user": "dev_netstats_cron",
+            "password": "dev_netstats_cron",
+            "port": 5672,
+            "vhost": "dev_netstats",
+            "active": true
+        },
+        {
+            "host": "10.0.70.250",
+            "user": "dev_netstats_cron",
+            "password": "dev_netstats_cron",
+            "port": 5672,
+            "vhost": "dev_netstats",
+            "active": true
+        }
+    ],
+    "queues": {
+        "consumeBaseName": "",
+        "publishBaseName": "netstats_dev/cron"
+    },
+    "snmp": {
+        "community": "asuran",
+        "port": 161
+    },
+    "logger": {
+        "appenders": {
+            "out": {
+                "type": "console"
+            },
+            "task": {
+                "type": "file",
+                "filename": "logs/netstatsNodeCron.log",
+                "maxLogSize": 1048576,
+                "backups": 10
+            }
+        },
+        "categories": {
+            "default": {
+                "appenders": [
+                    "out",
+                    "task"
+                ],
+                "level": "debug"
+            },
+            "task": {
+                "appenders": [
+                    "task"
+                ],
+                "level": "error"
+            }
+        }
+    },
+    "logging": {
+        "level": "debug",
+        "areas": [
+            "cron",
+            "messagebroker",
+            "fs"
+        ],
+        "owner": "dev_wugms_cron"
+    }
+}
