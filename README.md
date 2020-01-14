@@ -1,34 +1,34 @@
-# netstatsNodeCron
+# netstatsCron
 
-[![Build Status](https://travis-ci.org/ThatOneNeji/netstatsNodeCron.svg?branch=master)](https://travis-ci.org/ThatOneNeji/netstatsNodeCron)
+[![Build Status](https://travis-ci.org/ThatOneNeji/netstatsCron.svg?branch=master)](https://travis-ci.org/ThatOneNeji/netstatsCron)
 
 
-<!--- [![Coverage Status](https://coveralls.io/repos/github/ThatOneNeji/netstatsNodeCron/badge.svg?branch=master)](https://coveralls.io/github/ThatOneNeji/netstatsNodeCron?branch=master)
+<!--- [![Coverage Status](https://coveralls.io/repos/github/ThatOneNeji/netstatsCron/badge.svg?branch=master)](https://coveralls.io/github/ThatOneNeji/netstatsCron?branch=master)
 -->
 
-netstatsNodeCron manages the cron for netstats group of applications
+netstatsCron manages the cron for netstats group of applications
 
 ## Overview
-This node application is one of the five main applications within the "netstats" collection of applications. While running it sends command requests to an AMQP instance which in turn is processed by **netstatsNode<_protocol_>Poller**.
+This node application is one of the five main applications within the "netstats" collection of applications. While running it sends command requests to an AMQP instance which in turn is processed by **netstats<_protocol_>Poller**.
 
 ## Hierarchy of netstats applications
-* netstatsNodeCron - **This application**
-* netstatsNodeSNMPPoller - The poller application that actions the requests from netstatsNodeCron for the SNMP protocol
-* netstatsNodeSSHPoller - The poller application that actions the requests from netstatsNodeCron for the SSH protocol
-* netstatsNodeSNMPProcessor - The processing application that actions returned data from netstatsNodeSNMPPoller
-* netstatsNodeMySQLLoader - Primary MySQL loader
+* netstatsCron - **This application**
+* netstatsSNMPPoller - The poller application that actions the requests from netstatsCron for the SNMP protocol
+* netstatsSSHPoller - The poller application that actions the requests from netstatsCron for the SSH protocol
+* netstatsSNMPProcessor - The processing application that actions returned data from netstatsSNMPPoller
+* netstatsMySQLLoader - Primary MySQL loader
 
 ## Getting started
 * Create the required user in RabbitMQ:
   ```shell
-  rabbitmqctl add_user netstatsNodeCron netstatsNodeCron
+  rabbitmqctl add_user netstatsCron netstatsCron
   ```
 * Update the configuration in settings.json to reflect the correct IP address for your AMQP instance:
 ```json
     "amqp": {
         "server": "127.0.0.1",
-        "user": "netstatsNodeCron",
-        "password": "netstatsNodeCron",
+        "user": "netstatsCron",
+        "password": "netstatsCron",
         "queuename": "netstats/cron/"
     }
 ```
