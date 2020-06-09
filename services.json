@@ -2,7 +2,7 @@
     "services": [{
             "protocol": "snmp",
             "area": "stats",
-            "active": true,
+            "active": false,
             "parameters": {
                 "name": "public",
                 "port": 161
@@ -120,7 +120,7 @@
         {
             "protocol": "dig",
             "area": "monitoring",
-            "active": true,
+            "active": false,
             "parameters": {
                 "name": "ipv4"
             },
@@ -178,7 +178,7 @@
         {
             "protocol": "nslookup",
             "area": "monitoring",
-            "active": true,
+            "active": false,
             "parameters": {
                 "name": "ipv4"
             },

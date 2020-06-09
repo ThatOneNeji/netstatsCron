@@ -31,24 +31,9 @@
  */
 var appConfig;
 
-
 /* Load internal libraries */
-/**
- * @function logging
- * @description  description
- */
 var logging = require('./lib/logger.js');
-
-/**
- * @function MessageBroker
- * @description description
- */
-var Common = require('./lib/common.js');
-
-/**
- * @function MessageBroker
- * @description description
- */
+var nejiutils = require('./lib/nejiutils.js');
 var MessageBroker = require('./lib/messagebroker.js');
 
 /* 3rd party libraries */
@@ -58,6 +43,7 @@ var crypto = require('crypto');
 var moment = require('moment');
 /* Global vars */
 var Logging;
+var Common;
 
 /**
  * This object contains all the information used during runtime
@@ -108,6 +94,7 @@ function loadConfigurationFile() {
 function initialiseApplication() {
     loadConfigurationFile();
     Logging = new logging(appConfig.logging);
+    Common = new nejiutils();
     Logging.system.info('Starting');
 }
 
@@ -488,7 +475,7 @@ const cronDDHHMM15 = new CronJob('*/15 * * * * *', function() {
     Logging.cron.info('Running 15 second cron');
     let options = {
         type: 'interval',
-        cron: 0.15
+        cron: '0.25'
     }
     runService(options);
 }, null, true, 'Africa/Johannesburg');
@@ -496,19 +483,19 @@ const cronDDHHMM15 = new CronJob('*/15 * * * * *', function() {
 /**
  * This is a cron for every 30 seconds
  */
-const cronDDHHMM30 = new CronJob('*/30 * * * * *', function() {
+ const cronDDHHMM30 = new CronJob('*/30 * * * * *', function() {
     Logging.cron.info('Running 30 second cron');
     let options = {
         type: 'interval',
-        cron: 0.30
+        cron: 0.50
     }
     runService(options);
-}, null, true, 'Africa/Johannesburg');
+}, null, true, 'Africa/Johannesburg'); 
 
 /**
  * This is a cron for every 1 minute
  */
-const cronDDHH01SS = new CronJob('0 */1 * * * *', function() {
+const cronDDHH01SS = new CronJob('0 * * * * *', function() {
     Logging.cron.info('Running 1 minute cron');
     let options = {
         type: 'interval',
@@ -532,69 +519,69 @@ const cronDDHH05SS = new CronJob('0 */5 * * * *', function() {
 /**
  * This is a cron for every 10 minutes
  */
-const cronDDHH10SS = new CronJob('0 */10 * * * *', function() {
+/* const cronDDHH10SS = new CronJob('0 * /10 * * * *', function() {
     Logging.cron.info('Running 10 minutes cron');
     let options = {
         type: 'interval',
         cron: 10
     }
     runService(options);
-}, null, true, 'Africa/Johannesburg');
+}, null, true, 'Africa/Johannesburg'); */
 
 /**
  * This is a cron for every 15 minutes
  */
-const cronDDHH15SS = new CronJob('0 */15 * * * *', function() {
+/* const cronDDHH15SS = new CronJob('0 * /15 * * * *', function() {
     Logging.cron.info('Running 15 minutes cron');
     let options = {
         type: 'interval',
         cron: 15
     }
     runService(options);
-}, null, true, 'Africa/Johannesburg');
+}, null, true, 'Africa/Johannesburg'); */
 
 /**
  * This is a cron for every 30 minutes
  */
-const cronDDHH30SS = new CronJob('0 */30 * * * *', function() {
+/* const cronDDHH30SS = new CronJob('0 * /30 * * * *', function() {
     Logging.cron.info('Running 30 minutes cron');
     let options = {
         type: 'interval',
         cron: 30
     }
     runService(options);
-}, null, true, 'Africa/Johannesburg');
+}, null, true, 'Africa/Johannesburg'); */
 
 /**
  * This is a cron for every 60 minutes
  */
-const cronDD01MMSS = new CronJob('0 0 0 * * *', function() {
+/* const cronDD01MMSS = new CronJob('0 0 0 * * *', function() {
     Logging.cron.info('Running 60 minutes cron');
     let options = {
         type: 'interval',
         cron: 60
     }
     runService(options);
-}, null, true, 'Africa/Johannesburg');
+}, null, true, 'Africa/Johannesburg'); */
 
 /**
  * This is a cron for every 1440 minutes
  */
-const cron01HHMMSS = new CronJob('0 0 0 0 * *', function() {
+/* const cron01HHMMSS = new CronJob('0 0 0 0 * *', function() {
     Logging.cron.info('Running 60 minutes cron');
     let options = {
         type: 'interval',
         cron: 1440
     }
     runService(options);
-}, null, true, 'Africa/Johannesburg');
+}, null, true, 'Africa/Johannesburg'); */
 
 cronDDHHMM15.start();
 cronDDHHMM30.start();
 cronDDHH01SS.start();
 cronDDHH05SS.start();
-cronDDHH10SS.start();
+/*cronDDHH10SS.start();
 cronDDHH15SS.start();
 cronDDHH30SS.start();
 cronDD01MMSS.start();
-cron01HHMMSS.start();
+cron01HHMMSS.start(); */

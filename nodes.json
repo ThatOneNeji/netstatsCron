@@ -113,10 +113,10 @@
                         "name": "general",
                         "trigger": {
                             "type": "interval",
-                            "value": 5
+                            "value": 0.25
                         }
                     }],
-                    "active": false
+                    "active": true
                 },
                 "mtr": {
                     "subscriptions": [{
@@ -144,7 +144,7 @@
             "name": "Lab MESH network (Mikrotik)",
             "active": false,
             "addresses": [
-                "10.100.0.0/29"
+                "10.100.0.0/28"
             ],
             "protocols": {
                 "snmp": {
@@ -254,10 +254,10 @@
                         "name": "general",
                         "trigger": {
                             "type": "interval",
-                            "value": 5
+                            "value": 0.50
                         }
                     }],
-                    "active": false
+                    "active": true
                 },
                 "mtr": {
                     "subscriptions": [{
@@ -404,10 +404,10 @@
                         "name": "general",
                         "trigger": {
                             "type": "interval",
-                            "value": 5
+                            "value": 0.50
                         }
                     }],
-                    "active": false
+                    "active": true
                 },
                 "mtr": {
                     "subscriptions": [{
@@ -599,28 +599,28 @@
             }
         },
         {
-            "name": "CORE DNS Servers",
-            "active": false,
+            "name": "One Server",
+            "active": true,
             "addresses": [
                 "192.168.72.254",
-                "192.168.100.253"
+                "10.0.80.0/27"
             ],
             "protocols": {
-                "nslookup": {
+                "ping": {
                     "subscriptions": [{
-                        "name": "Local1",
+                        "name": "general",
                         "trigger": {
                             "type": "interval",
-                            "value": 1
+                            "value": 0.5
                         }
                     }],
-                    "active": false
+                    "active": true
                 }
             }
         },
         {
             "name": "TESTING DNS Servers",
-            "active": true,
+            "active": false,
             "addresses": [
                 "192.168.72.254",
                 "172.16.250.19",
@@ -636,7 +636,7 @@
                             "value": 1
                         }
                     }],
-                    "active": true
+                    "active": false
                 }
             }
         }
