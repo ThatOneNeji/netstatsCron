@@ -1,18 +1,20 @@
 {
     "env": {
-        "node": true,
         "commonjs": true,
-        "es6": true
+        "es2020": true,
+        "node": true
     },
-    "extends": "eslint:recommended",
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
+    "extends": [
+        "google"
+    ],
     "parserOptions": {
-        "ecmaVersion": 6
+        "ecmaVersion": 11
     },
     "rules": {
-        "no-console": "off"
+        "indent": 0,
+        "max-len": "off",
+        "comma-dangle": "off",
+        "eol-last": "off",
+        "object-curly-spacing": "off"
     }
 }

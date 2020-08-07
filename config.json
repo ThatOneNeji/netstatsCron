@@ -5,7 +5,7 @@
             "password": "dev_netstats_cron",
             "port": 5672,
             "vhost": "dev_netstats",
-            "active": true
+            "active": false
         },
         {
             "host": "10.0.70.250",

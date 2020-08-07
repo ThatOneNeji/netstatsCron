@@ -29,40 +29,40 @@
 /**
  * @property {ApplicationConfiguration} appConfig
  */
-var appConfig;
+let appConfig;
 
 /* Load internal libraries */
-var logging = require('./lib/logger.js');
-var nejiutils = require('./lib/nejiutils.js');
-var MessageBroker = require('./lib/messagebroker.js');
+const Loggingutils = require('./lib/logger.js');
+const Nejiutils = require('./lib/nejiutils.js');
+const MessageBroker = require('./lib/messagebroker.js');
 
 /* 3rd party libraries */
-var CronJob = require('cron').CronJob;
-var fs = require('fs');
-var crypto = require('crypto');
-var moment = require('moment');
+const CronJob = require('cron').CronJob;
+const fs = require('fs');
+const crypto = require('crypto');
+const moment = require('moment');
 /* Global vars */
-var Logging;
-var Common;
+let Logging;
+let Common;
 
 /**
  * This object contains all the information used during runtime
- * @typedef {object} RunTime - 
- * @property {object} loadedServices - 
- * @property {object} loadedNodes - 
- * @property {array} activeServices - 
- * @property {array} activeNodes - 
- * @property {object} activeList - 
- * @property {array} QueueAreas - 
+ * @typedef {object} RunTime -
+ * @property {object} loadedServices -
+ * @property {object} loadedNodes -
+ * @property {array} activeServices -
+ * @property {array} activeNodes -
+ * @property {object} activeList -
+ * @property {array} QueueAreas -
  */
-var RunTime = {
+const RunTime = {
     loadedServices: {},
     loadedNodes: '',
     activeServices: [],
     activeNodes: [],
     activeList: {},
     QueueAreas: []
-}
+};
 
 
 /**
@@ -93,8 +93,8 @@ function loadConfigurationFile() {
  */
 function initialiseApplication() {
     loadConfigurationFile();
-    Logging = new logging(appConfig.logging);
-    Common = new nejiutils();
+    Logging = new Loggingutils(appConfig.logging);
+    Common = new Nejiutils();
     Logging.system.info('Starting');
 }
 
@@ -105,9 +105,9 @@ initialiseApplication();
 
 /**
  * This object contains the configuration information for the logging subsystem
- * @typedef {Object} loggingOptions - 
- * @property {string} level - 
- * @property {array} areas - 
+ * @typedef {Object} loggingOptions -
+ * @property {string} level -
+ * @property {array} areas -
  * @property {string} owner - Application name
  */
 
@@ -132,7 +132,7 @@ initialiseApplication();
  * @property {object} content Additional information for the protocol
  * @property {integer} stime Start time in epoch milliseconds
  * @property {integer} etime End time in epoch milliseconds. If we get this msg after this time then we do not action it.
- * @property {integer} nowTime 
+ * @property {integer} nowTime
  * @property {string} rdate Record date to use for when the result data gets loaded.
  * @property {integer} lifespan How long this command is valid for, in seconds.
  * @property {string} caid Hash value of this object. This will be used to track where this message moves to.
@@ -158,7 +158,7 @@ initialiseApplication();
  * @property {string} receiveQueueName - This is the name of the consume instance
  * @property {function} externalHandover - This function is called from the message broker in order to action incoming data
  */
-var messageBrokerOptions = {
+const messageBrokerOptions = {
     logger: Logging.messagebroker,
     config: appConfig.messagebrokers,
     publishQueueName: appConfig.queues.publishBaseName,
@@ -184,18 +184,18 @@ function servicesLoad() {
 }
 
 /**
- * validateTargetAddress - 
+ * validateTargetAddress -
  * @param {*} hosts - This is the item that needs to be validated
  * @return {array} List of validated hosts
  */
 function validateTargetAddress(hosts) {
-    let addressList = [];
-    hosts.forEach(host => {
+    const addressList = [];
+    hosts.forEach((host) => {
         Common.validateTargetAddress(host);
-        let results = Common.validateTargetAddress(host);
+        const results = Common.validateTargetAddress(host);
         if (results.status) {
             Logging.system.info(results.debug);
-            results.data.forEach(address => {
+            results.data.forEach((address) => {
                 addressList.push(address);
             });
         } else {
@@ -209,7 +209,6 @@ function validateTargetAddress(hosts) {
  * Loop through the services and flatten that so that they are easier to use.
  */
 function servicesFlatten() {
-    //activeServices = [];
     Logging.system.info('Flatting services');
     RunTime.loadedServices.services.forEach(function(serviceRaw) {
         if (serviceRaw.active) {
@@ -218,7 +217,7 @@ function servicesFlatten() {
                 if (service.active) {
                     Logging.system.info('Protocol "' + serviceRaw.protocol + '" has enabled inventory item "' + service.name + '"');
                     if (service.contents.constructor === Object) {
-                        let msg = {
+                        const msg = {
                             protocol: serviceRaw.protocol,
                             subscription: service.name,
                             parameters: serviceRaw.parameters,
@@ -228,7 +227,7 @@ function servicesFlatten() {
                         RunTime.activeServices.push(msg);
                     } else {
                         service.contents.forEach(function(item) {
-                            let msg = {
+                            const msg = {
                                 protocol: serviceRaw.protocol,
                                 subscription: service.name,
                                 parameters: serviceRaw.parameters,
@@ -241,7 +240,7 @@ function servicesFlatten() {
                 } else {
                     Logging.system.debug('Protocol "' + serviceRaw.protocol + '" has disabled inventory item "' + service.name + '"');
                 }
-            })
+            });
         } else {
             Logging.system.debug('Protocol "' + serviceRaw.protocol + '" is disabled');
         }
@@ -269,13 +268,12 @@ function nodesFlatten() {
     RunTime.loadedNodes.nodes.forEach(function(nodeRaw) {
         if (nodeRaw.active) {
             Logging.system.debug('Group "' + nodeRaw.name + '" is enabled');
-            let AddressList = validateTargetAddress(nodeRaw.addresses);
+            const AddressList = validateTargetAddress(nodeRaw.addresses);
             AddressList.forEach(function(TargetAddress) {
                 Object.keys(nodeRaw.protocols).forEach(function(protocol) {
-
                     if (nodeRaw.protocols[protocol].active) {
                         nodeRaw.protocols[protocol].subscriptions.forEach(function(subscription) {
-                            let msg = {
+                            const msg = {
                                 protocol: protocol,
                                 subscription: subscription.name,
                                 groupname: nodeRaw.name,
@@ -301,7 +299,7 @@ function nodesFlatten() {
 }
 
 /**
- * 
+ *
  * @typedef {object} serviceConfigData
  * @property {string} protocol - Name of the protocol
  * @property {string} subscription - Name of service
@@ -311,7 +309,7 @@ function nodesFlatten() {
  */
 
 /**
- * 
+ *
  * @typedef {object} NodeConfigData
  * @property {string} protocol - Name of the protocol
  * @property {string} subscription - Name of service
@@ -323,7 +321,7 @@ function nodesFlatten() {
  */
 
 /**
- * 
+ *
  * @typedef {object} nodeServiceConfigData
  * @property {string} protocol - This can be ping, mtr, http, snmp and so on
  * @property {string} area - The area or type that is is used for.
@@ -336,13 +334,13 @@ function nodesFlatten() {
  */
 
 /**
- * compileServiceHost - 
+ * compileServiceHost -
  * @param {serviceConfigData} Service - Properties
  * @param {NodeConfigData} Node - Properties
  * @return {nodeServiceConfigData} Object containing the config
  */
 function compileServiceHost(Service, Node) {
-    let builtStr = {
+    const builtStr = {
         protocol: Service.protocol,
         subscription: Service.subscription,
         area: Service.area,
@@ -356,10 +354,10 @@ function compileServiceHost(Service, Node) {
 }
 
 /**
- * buildNodeServiceRuntimeList - 
+ * buildNodeServiceRuntimeList -
  */
 function buildNodeServiceRuntimeList() {
-    let counter = {};
+    const counter = {};
     Logging.system.info('Building node service list');
     RunTime.activeNodes.forEach(function(activeNode) {
         if (typeof RunTime.activeList[activeNode.trigger] === 'undefined') {
@@ -376,7 +374,6 @@ function buildNodeServiceRuntimeList() {
                 counter[activeNode.trigger][activeNode.cron]++;
             }
         });
-
     });
     Object.keys(counter).forEach(function(key) {
         Object.keys(counter[key]).forEach(function(val) {
@@ -389,12 +386,12 @@ function buildNodeServiceRuntimeList() {
 
 /**
  * buildHash - This function allows us to create a hash value based on the supplied data
- * @param {cronDataMessage} msg - 
+ * @param {cronDataMessage} msg -
  * @return {string} Hash value of the supplied object
  */
 function buildHash(msg) {
     let str = '';
-    for (let k in msg) {
+    for (const k in msg) {
         if (msg.hasOwnProperty(k)) {
             if (msg[k].constructor === Object) {
                 str += JSON.stringify(msg[k]);
@@ -403,13 +400,13 @@ function buildHash(msg) {
             }
         }
     }
-    let hash = crypto.createHash('sha256');
+    const hash = crypto.createHash('sha256');
     hash.update(str);
     return hash.digest('hex');
 }
 
 /**
- * 
+ *
  * @typedef {object} runServiceOptions
  * @property {string} type - This can be ping, mtr, http, snmp and so on
  * @property {string} cron - The area or type that is is used for.
@@ -419,17 +416,16 @@ function buildHash(msg) {
  * @param {runServiceOptions} options - The interval that needs to be used.
  */
 function runService(options = {}) {
-
     Logging.system.info('"' + options.type + '" -> "' + options.cron + '": Retrieving all service/host entries');
-    let payloads = [];
+    const payloads = [];
     if (RunTime.activeList[options.type][options.cron]) {
         RunTime.activeList[options.type][options.cron].forEach(function(cronMsg) {
-            let payload = {
+            const payload = {
                 queuename: appConfig.queues.publishBaseName + '/' + cronMsg.area
             };
             cronMsg.stime = moment().valueOf();
             cronMsg.etime = moment(moment().add(Math.round((options.cron * 60) / 2), 'seconds')).valueOf();
-            cronMsg.rdate = moment().format("YYYY/MM/DD HH:mm:ss");
+            cronMsg.rdate = moment().format('YYYY/MM/DD HH:mm:ss');
             cronMsg.lifespan = ((options.cron * 60) / 2);
             cronMsg.service = 'cron';
             cronMsg.caid = buildHash(cronMsg);
@@ -445,6 +441,9 @@ function runService(options = {}) {
     }
 }
 
+/**
+ *
+ */
 function createQueues() {
     Logging.messagebroker.info('Creating queues in the message broker');
     RunTime.QueueAreas.forEach(function(queuearea) {
@@ -454,7 +453,10 @@ function createQueues() {
     });
 }
 
-
+/**
+ *
+ * @param {*} msg
+ */
 function receiveHandler(msg) {
     Logging.system.error(msg);
 }
@@ -473,34 +475,34 @@ if (RunTime.QueueAreas.length) {
  */
 const cronDDHHMM15 = new CronJob('*/15 * * * * *', function() {
     Logging.cron.info('Running 15 second cron');
-    let options = {
+    const options = {
         type: 'interval',
         cron: '0.25'
-    }
+    };
     runService(options);
 }, null, true, 'Africa/Johannesburg');
 
 /**
  * This is a cron for every 30 seconds
  */
- const cronDDHHMM30 = new CronJob('*/30 * * * * *', function() {
+const cronDDHHMM30 = new CronJob('*/30 * * * * *', function() {
     Logging.cron.info('Running 30 second cron');
-    let options = {
+    const options = {
         type: 'interval',
         cron: 0.50
-    }
+    };
     runService(options);
-}, null, true, 'Africa/Johannesburg'); 
+}, null, true, 'Africa/Johannesburg');
 
 /**
  * This is a cron for every 1 minute
  */
 const cronDDHH01SS = new CronJob('0 * * * * *', function() {
     Logging.cron.info('Running 1 minute cron');
-    let options = {
+    const options = {
         type: 'interval',
         cron: 1
-    }
+    };
     runService(options);
 }, null, true, 'Africa/Johannesburg');
 
@@ -509,10 +511,10 @@ const cronDDHH01SS = new CronJob('0 * * * * *', function() {
  */
 const cronDDHH05SS = new CronJob('0 */5 * * * *', function() {
     Logging.cron.info('Running 5 minutes cron');
-    let options = {
+    const options = {
         type: 'interval',
         cron: 5
-    }
+    };
     runService(options);
 }, null, true, 'Africa/Johannesburg');
 
@@ -580,8 +582,3 @@ cronDDHHMM15.start();
 cronDDHHMM30.start();
 cronDDHH01SS.start();
 cronDDHH05SS.start();
-/*cronDDHH10SS.start();
-cronDDHH15SS.start();
-cronDDHH30SS.start();
-cronDD01MMSS.start();
-cron01HHMMSS.start(); */
