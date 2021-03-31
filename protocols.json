@@ -3,76 +3,76 @@
             "type": "snmp",
             "enabled": false,
             "intervals": [{
-                    "value": "60",
-                    "enabled": false,
-                    "services": ["mikrotiksystem"],
-                    "age": "30"
-                }, {
-                    "value": "300",
-                    "enabled": true,
-                    "services": ["host_resources_processor", "host_resources_storage", "mikrotik_grp", "ifhcmib_interfaces", "mikrotik_interfacestats", "ifmib_interfaces", "mikrotik_ap_client"],
-                    "age": "150"
-                }, {
-                    "value": "600",
-                    "enabled": false,
-                    "services": [],
-                    "age": "300"
-                }, {
-                    "value": "900",
-                    "enabled": false,
-                    "services": [],
-                    "age": "450"
-                }
-            ]
+                "value": "60",
+                "enabled": false,
+                "services": ["mikrotiksystem"],
+                "age": "30"
+            }, {
+                "value": "300",
+                "enabled": true,
+                "services": ["host_resources_processor", "host_resources_storage", "mikrotik_grp", "ifhcmib_interfaces", "mikrotik_interfacestats", "ifmib_interfaces", "mikrotik_ap_client"],
+                "age": "150"
+            }, {
+                "value": "600",
+                "enabled": false,
+                "services": [],
+                "age": "300"
+            }, {
+                "value": "900",
+                "enabled": false,
+                "services": [],
+                "age": "450"
+            }]
         },
         {
             "type": "ssh",
             "enabled": false,
             "intervals": [{
-                    "value": "60",
-                    "enabled": false,
-                    "services": [],
-                    "age": "30"
-                }, {
-                    "value": "300",
-                    "enabled": true,
-                    "services": ["bgp_peer", "wireless_registration", "arp"],
-                    "age": "150"
-                }, {
-                    "value": "600",
-                    "enabled": false,
-                    "services": [],
-                    "age": "300"
-                }, {
-                    "value": "900",
-                    "enabled": false,
-                    "services": [],
-                    "age": "450"
-                }]
+                "value": "60",
+                "enabled": false,
+                "services": [],
+                "age": "30"
+            }, {
+                "value": "300",
+                "enabled": true,
+                "services": ["bgp_peer", "wireless_registration", "arp"],
+                "age": "150"
+            }, {
+                "value": "600",
+                "enabled": false,
+                "services": [],
+                "age": "300"
+            }, {
+                "value": "900",
+                "enabled": false,
+                "services": [],
+                "age": "450"
+            }]
         },
         {
             "type": "network",
             "enabled": true,
             "intervals": [{
-                    "value": "10",
-                    "enabled": true,
-                    "services": ["ping", "traceroute", "dns"],
-                    "age": "5"
-                }, {
-                    "value": "300",
-                    "enabled": false,
-                    "services": [],
-                    "age": "150"
-                }, {
-                    "value": "600",
-                    "enabled": false,
-                    "services": [],
-                    "age": "300"
-                }, {
-                    "value": "900",
-                    "enabled": false,
-                    "services": [],
-                    "age": "450"
-                }]
-        }]
+                "value": "1",
+                "enabled": true,
+                "services": ["ping", "traceroute", "dns"],
+                "age": "5"
+            }, {
+                "value": "300",
+                "enabled": false,
+                "services": [],
+                "age": "150"
+            }, {
+                "value": "600",
+                "enabled": false,
+                "services": [],
+                "age": "300"
+            }, {
+                "value": "900",
+                "enabled": false,
+                "services": [],
+                "age": "450"
+            }]
+        }
+    ]
 }

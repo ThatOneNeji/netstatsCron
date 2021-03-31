@@ -136,7 +136,7 @@
                             "value": 5
                         }
                     }],
-                    "active": false
+                    "active": true
                 }
             }
         },
@@ -603,7 +603,8 @@
             "active": true,
             "addresses": [
                 "192.168.72.254",
-                "10.0.80.0/27"
+                "10.100.0.10",
+                "10.100.0.12"
             ],
             "protocols": {
                 "ping": {
@@ -611,7 +612,17 @@
                         "name": "general",
                         "trigger": {
                             "type": "interval",
-                            "value": 0.5
+                            "value": 1
+                        }
+                    }],
+                    "active": true
+                },
+                "traceroute": {
+                    "subscriptions": [{
+                        "name": "general",
+                        "trigger": {
+                            "type": "interval",
+                            "value": 1
                         }
                     }],
                     "active": true

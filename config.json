@@ -1,16 +1,16 @@
 {
     "messagebrokers": [{
-            "host": "192.168.72.1",
-            "user": "dev_netstats_cron",
-            "password": "dev_netstats_cron",
+            "host": "bofuri",
+            "user": "dev_dev_netstats_cron",
+            "password": "dev_dev_netstats_cron",
             "port": 5672,
             "vhost": "dev_netstats",
             "active": false
         },
         {
-            "host": "10.0.70.250",
-            "user": "dev_netstats_cron",
-            "password": "dev_netstats_cron",
+            "host": "kuma",
+            "user": "dev_dev_netstats_cron",
+            "password": "dev_dev_netstats_cron",
             "port": 5672,
             "vhost": "dev_netstats",
             "active": true
@@ -18,7 +18,7 @@
     ],
     "queues": {
         "consumeBaseName": "",
-        "publishBaseName": "netstats_dev/cron"
+        "publishBaseName": "dev_dev_netstats_cron/cron"
     },
     "snmp": {
         "community": "asuran",
@@ -59,6 +59,6 @@
             "messagebroker",
             "fs"
         ],
-        "owner": "dev_wugms_cron"
+        "owner": "dev_dev_netstats_cron"
     }
 }

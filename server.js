@@ -212,6 +212,7 @@ function servicesFlatten() {
     Logging.system.info('Flatting services');
     RunTime.loadedServices.services.forEach(function(serviceRaw) {
         if (serviceRaw.active) {
+            console.log(serviceRaw.protocol);
             RunTime.QueueAreas.push(serviceRaw.protocol);
             serviceRaw.inventory.forEach(function(service) {
                 if (service.active) {
@@ -420,8 +421,9 @@ function runService(options = {}) {
     const payloads = [];
     if (RunTime.activeList[options.type][options.cron]) {
         RunTime.activeList[options.type][options.cron].forEach(function(cronMsg) {
+            console.log(cronMsg);
             const payload = {
-                queuename: appConfig.queues.publishBaseName + '/' + cronMsg.area
+                queuename: appConfig.queues.publishBaseName + '/' + cronMsg.protocol
             };
             cronMsg.stime = moment().valueOf();
             cronMsg.etime = moment(moment().add(Math.round((options.cron * 60) / 2), 'seconds')).valueOf();
@@ -435,6 +437,7 @@ function runService(options = {}) {
     }
     if (payloads.length) {
         Logging.messagebroker.info('"' + options.type + '" -> "' + options.cron + '": Sending ' + payloads.length + ' item(s) to the message broker');
+        console.log(payloads);
         MessageBroker.batchPublish(payloads);
     } else {
         Logging.system.info('"' + options.type + '" -> "' + options.cron + '": Nothing to send to the message broker.');
