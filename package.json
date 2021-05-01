@@ -14,19 +14,15 @@
     "author": "ThatOneNeji",
     "contributors": [],
     "dependencies": {
-        "amqp-connection-manager": "^3.2.1",
-        "amqplib": "^0.6.0",
-        "cron": "^1.8.2",
-        "log4js": "^6.3.0",
-        "moment": "^2.29.1",
-        "netmask": "^1.0.6"
+        "commonfunctions": "git+ssh://git@github.com/ThatOneNeji/CommonFunctions.git",
+        "cron": "^1.8.2"
     },
     "main": "server.js",
     "scripts": {
         "documentation": "./node_modules/.bin/jsdoc -d docs server.js"
     },
     "devDependencies": {
-        "eslint": "^7.16.0",
+        "eslint": "^7.25.0",
         "eslint-config-google": "^0.14.0",
         "ink-docstrap": "^1.3.2",
         "jsdoc": "^3.6.6"
