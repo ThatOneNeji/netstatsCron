@@ -14,32 +14,19 @@
     "author": "ThatOneNeji",
     "contributors": [],
     "dependencies": {
-<<<<<<< Updated upstream
-        "amqp-connection-manager": "^3.2.2",
-        "amqplib": "^0.7.1",
-        "cron": "^1.8.2",
-        "log4js": "^6.3.0",
-        "moment": "^2.29.1",
-        "netmask": "^2.0.1"
-=======
         "amqp-connection-manager": "^3.2.1",
         "amqplib": "^0.6.0",
         "cron": "^1.8.2",
         "log4js": "^6.3.0",
         "moment": "^2.29.1",
         "netmask": "^1.0.6"
->>>>>>> Stashed changes
     },
     "main": "server.js",
     "scripts": {
         "documentation": "./node_modules/.bin/jsdoc -d docs server.js"
     },
     "devDependencies": {
-<<<<<<< Updated upstream
-        "eslint": "^7.23.0",
-=======
         "eslint": "^7.16.0",
->>>>>>> Stashed changes
         "eslint-config-google": "^0.14.0",
         "ink-docstrap": "^1.3.2",
         "jsdoc": "^3.6.6"
