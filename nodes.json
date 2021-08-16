@@ -116,7 +116,7 @@
                             "value": 0.25
                         }
                     }],
-                    "active": true
+                    "active": false
                 },
                 "mtr": {
                     "subscriptions": [{
@@ -136,7 +136,7 @@
                             "value": 5
                         }
                     }],
-                    "active": true
+                    "active": false
                 }
             }
         },
@@ -257,7 +257,7 @@
                             "value": 0.50
                         }
                     }],
-                    "active": true
+                    "active": false
                 },
                 "mtr": {
                     "subscriptions": [{
@@ -407,7 +407,7 @@
                             "value": 0.50
                         }
                     }],
-                    "active": true
+                    "active": false
                 },
                 "mtr": {
                     "subscriptions": [{
@@ -600,11 +600,10 @@
         },
         {
             "name": "One Server",
-            "active": true,
+            "active": false,
             "addresses": [
                 "192.168.72.254",
-                "10.100.0.10",
-                "10.100.0.12"
+                "10.0.80.0/27"
             ],
             "protocols": {
                 "ping": {
@@ -612,42 +611,192 @@
                         "name": "general",
                         "trigger": {
                             "type": "interval",
-                            "value": 1
+                            "value": 0.5
                         }
                     }],
-                    "active": true
-                },
-                "traceroute": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 1
-                        }
-                    }],
-                    "active": true
+                    "active": false
                 }
             }
         },
         {
-            "name": "TESTING DNS Servers",
-            "active": false,
+            "name": "TESTING MySQL Servers",
+            "active": true,
             "addresses": [
-                "192.168.72.254",
-                "172.16.250.19",
-                "172.16.119.22",
                 "172.16.119.35"
             ],
             "protocols": {
-                "nslookup": {
+                "mysql": {
                     "subscriptions": [{
-                        "name": "TESTING",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 1
+                            "name": "update_1",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_2",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_3",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_4",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_6",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_7",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_8",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_9",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_10",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_11",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_12",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_13",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_14",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_15",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_16",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_17",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_18",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_19",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_20",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_21",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_22",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_23",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_24",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "update_25",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
                         }
-                    }],
-                    "active": false
+
+                    ],
+                    "active": true
                 }
             }
         }

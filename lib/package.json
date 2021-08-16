@@ -1,0 +1,23 @@
+{
+    "name": "commonlibraries",
+    "version": "1.0.0",
+    "description": "description",
+    "scripts": {
+        "documentation": "./node_modules/.bin/jsdoc -c jsdoc.json -r .",
+        "lint": "./node_modules/.bin/eslint server.js"
+    },
+    "author": "",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "url"
+    },
+    "dependencies": {
+        "amqp-connection-manager": "^3.2.2",
+        "amqplib": "^0.8.0",
+        "cron": "^1.8.2",
+        "log4js": "^6.3.0",
+        "moment": "^2.29.1",
+        "netmask": "^2.0.2"
+    }
+}
