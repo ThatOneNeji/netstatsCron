@@ -14,19 +14,22 @@
     "author": "ThatOneNeji",
     "contributors": [],
     "dependencies": {
-        "amqp-connection-manager": "^3.7.0",
-        "amqplib": "^0.8.0",
-        "cron": "^1.8.2",
-        "log4js": "^6.3.0",
-        "moment": "^2.29.1",
+        "amqp-connection-manager": "^4.1.14",
+        "commonfunctions": "github:ThatOneNeji/CommonFunctions",
+        "amqplib": "^0.10.5",
+        "cron": "^3.2.1",
+        "log4js": "^6.9.1",
+        "moment": "^2.30.1",
         "netmask": "^2.0.2"
     },
     "main": "server.js",
     "scripts": {
-        "documentation": "./node_modules/.bin/jsdoc -d docs server.js"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "documentation": "./node_modules/.bin/jsdoc -c jsdoc.json server.js",
+        "lint": "./node_modules/.bin/eslint ./*.js"
     },
     "devDependencies": {
-        "eslint": "^8.0.1",
-        "jsdoc": "^3.6.7"
+        "eslint": "^9.15.0",
+        "jsdoc": "^4.0.4"
     }
 }
