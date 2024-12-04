@@ -1,6 +1,7 @@
 {
-    "messagebrokers": [{
-            "host": "bofuri",
+    "messagebrokers": [
+        {
+            "host": "127.0.0.1",
             "user": "dev_mcnms_cron",
             "password": "dev_mcnms_cron",
             "port": 5672,
@@ -8,17 +9,25 @@
             "active": true
         },
         {
-            "host": "kuma",
-            "user": "dev_netstats_cron",
-            "password": "dev_netstats_cron",
+            "host": "127.0.0.1",
+            "user": "dev_mcnms_cron",
+            "password": "dev_mcnms_cron",
             "port": 5672,
-            "vhost": "dev_netstats",
-            "active": true
+            "vhost": "dev_mcnms",
+            "active": false
+        },
+        {
+            "host": "127.0.0.1",
+            "user": "dev_mcnms_cron",
+            "password": "dev_mcnms_cron",
+            "port": 5672,
+            "vhost": "dev_mcnms",
+            "active": false
         }
     ],
     "queues": {
         "consumeBaseName": "",
-        "publishBaseName": "dev_mcnms"
+        "publishBaseName": "dev_db2"
     },
     "snmp": {
         "community": "asuran",
@@ -31,8 +40,8 @@
             },
             "task": {
                 "type": "file",
-                "filename": "logs/netstatsNodeCron.log",
-                "maxLogSize": 1048576,
+                "filename": "logs/server.log",
+                "maxLogSize": 10485760,
                 "backups": 10
             }
         },

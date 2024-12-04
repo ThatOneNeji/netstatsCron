@@ -627,174 +627,376 @@
             "protocols": {
                 "mysql": {
                     "subscriptions": [{
-                            "name": "update_1",
+                            "name": "dev_tbl_base_snmp_diskio_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_2",
+                            "name": "dev_tbl_base_snmp_dot1dbaseport_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_3",
+                            "name": "dev_tbl_base_snmp_dot1dstpport_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_4",
+                            "name": "dev_tbl_base_snmp_dot1dtpfdb_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_6",
+                            "name": "dev_tbl_base_snmp_dot1dtpport_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_7",
+                            "name": "dev_tbl_base_snmp_dot1qportvlan_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_8",
+                            "name": "dev_tbl_base_snmp_hrdevice_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_9",
+                            "name": "dev_tbl_base_snmp_hrprocessor_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_10",
+                            "name": "dev_tbl_base_snmp_hrstorage_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_11",
+                            "name": "dev_tbl_base_snmp_hrsystem_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_12",
+                            "name": "dev_tbl_base_snmp_if_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_13",
+                            "name": "dev_tbl_base_snmp_ifx_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_14",
+                            "name": "dev_tbl_base_snmp_ipaddr_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_15",
+                            "name": "dev_tbl_base_snmp_ipcidrroute_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_16",
+                            "name": "dev_tbl_base_snmp_ipforward_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_17",
+                            "name": "dev_tbl_base_snmp_ipnettomedia_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_18",
+                            "name": "dev_tbl_base_snmp_iproute_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_19",
+                            "name": "dev_tbl_base_snmp_ipv6addr_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_20",
+                            "name": "dev_tbl_base_snmp_ipv6if_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_21",
+                            "name": "dev_tbl_base_snmp_lmfansensors_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_22",
+                            "name": "dev_tbl_base_snmp_lmmiscsensors_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_23",
+                            "name": "dev_tbl_base_snmp_lmtempsensors_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_24",
+                            "name": "dev_tbl_base_snmp_lmvoltsensors_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         },
                         {
-                            "name": "update_25",
+                            "name": "dev_tbl_base_snmp_mtxrdnstat_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrgauge_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrgps_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrhealth_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrhotspotactiveusers_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrikesa_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrinterfacestats_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrlicense_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrltemodem_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrneighbor_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxroptical_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrpartition_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrpoe_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrqueuesimple_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrqueuetree_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrscript_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrscriptrun_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrsystem_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrwl60g_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrwl60gsta_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrwlap_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrwlcm_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrwlcmremote_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrwlcmrtab_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrwlrtab_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_mtxrwlstat_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_sysor_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_system_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_vmwsystem_raw",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
+                        },
+                        {
+                            "name": "dev_tbl_base_snmp_vmwvm_raw",
                             "trigger": {
                                 "type": "interval",
                                 "value": 1
                             }
                         }
-
                     ],
                     "active": true
                 }

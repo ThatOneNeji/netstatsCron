@@ -321,189 +321,378 @@
         },
         {
             "protocol": "mysql",
-            "area": "mysql/data",
+            "area": "dev_mcnms/data",
             "active": true,
             "parameters": {},
             "inventory": [{
-                    "name": "update_1",
+                    "name": "dev_tbl_base_snmp_diskio_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_dot1dBasePort_raw         SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_diskio_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_2",
+                    "name": "dev_tbl_base_snmp_dot1dbaseport_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_dot1dStpPort_raw          SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_dot1dbaseport_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_3",
+                    "name": "dev_tbl_base_snmp_dot1dstpport_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_dot1dtpfdb_raw            SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_dot1dstpport_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_4",
+                    "name": "dev_tbl_base_snmp_dot1dtpfdb_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_dot1qPortVlan_raw         SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_dot1dtpfdb_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_6",
+                    "name": "dev_tbl_base_snmp_dot1dtpport_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_hrProcessor_raw           SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_dot1dtpport_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_7",
+                    "name": "dev_tbl_base_snmp_dot1qportvlan_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_hrStorage_raw             SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_dot1qportvlan_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_8",
+                    "name": "dev_tbl_base_snmp_hrdevice_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_if_raw                    SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_hrdevice_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_9",
+                    "name": "dev_tbl_base_snmp_hrprocessor_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_ifx_raw                   SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_hrprocessor_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_10",
+                    "name": "dev_tbl_base_snmp_hrstorage_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_ipCidrRoute_raw           SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_hrstorage_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_11",
+                    "name": "dev_tbl_base_snmp_hrsystem_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_ipForward_raw             SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_hrsystem_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_12",
+                    "name": "dev_tbl_base_snmp_if_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_mtxrHealth_raw            SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_if_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_13",
+                    "name": "dev_tbl_base_snmp_ifx_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_mtxrInterfaceStats_raw    SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_ifx_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_14",
+                    "name": "dev_tbl_base_snmp_ipaddr_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_mtxrLicense_raw           SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_ipaddr_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_15",
+                    "name": "dev_tbl_base_snmp_ipcidrroute_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_mtxrLTEModem_raw          SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_ipcidrroute_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_16",
+                    "name": "dev_tbl_base_snmp_ipforward_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_mtxrNeighbor_raw          SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_ipforward_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_17",
+                    "name": "dev_tbl_base_snmp_ipnettomedia_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_mtxrOptical_raw           SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_ipnettomedia_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_18",
+                    "name": "dev_tbl_base_snmp_iproute_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_mtxrQueueTree_raw         SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_iproute_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_19",
+                    "name": "dev_tbl_base_snmp_ipv6addr_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_mtxrSystem_raw            SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_ipv6addr_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_20",
+                    "name": "dev_tbl_base_snmp_ipv6if_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_mtxrWlAp_raw              SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_ipv6if_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_21",
+                    "name": "dev_tbl_base_snmp_lmfansensors_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_mtxrWlCM_raw              SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_lmfansensors_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_22",
+                    "name": "dev_tbl_base_snmp_lmmiscsensors_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_mtxrWlRtab_raw            SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_lmmiscsensors_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_23",
+                    "name": "dev_tbl_base_snmp_lmtempsensors_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_mtxrWlStat_raw            SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_lmtempsensors_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_24",
+                    "name": "dev_tbl_base_snmp_lmvoltsensors_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_mtxrGauge_raw             SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_lmvoltsensors_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_25",
+                    "name": "dev_tbl_base_snmp_mtxrdnstat_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_system_raw                SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrdnstat_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_27",
+                    "name": "dev_tbl_base_snmp_mtxrgauge_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_dot1dTpPort_raw           SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrgauge_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 },
                 {
-                    "name": "update_28",
+                    "name": "dev_tbl_base_snmp_mtxrgps_raw",
                     "active": true,
                     "contents": {
-                        "name": "UPDATE dev_tbl_base_snmp_ipaddr_raw                SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrgps_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrhealth_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrhealth_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrhotspotactiveusers_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrhotspotactiveusers_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrikesa_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrikesa_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrinterfacestats_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrinterfacestats_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrlicense_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrlicense_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrltemodem_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrltemodem_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrneighbor_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrneighbor_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxroptical_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxroptical_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrpartition_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrpartition_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrpoe_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrpoe_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrqueuesimple_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrqueuesimple_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrqueuetree_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrqueuetree_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrscript_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrscript_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrscriptrun_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrscriptrun_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrsystem_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrsystem_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrwl60g_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrwl60g_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrwl60gsta_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrwl60gsta_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrwlap_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrwlap_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrwlcm_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrwlcm_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrwlcmremote_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrwlcmremote_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrwlcmrtab_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrwlcmrtab_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrwlrtab_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrwlrtab_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_mtxrwlstat_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_mtxrwlstat_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_sysor_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_sysor_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_system_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_system_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_vmwsystem_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_vmwsystem_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
+                    }
+                },
+                {
+                    "name": "dev_tbl_base_snmp_vmwvm_raw",
+                    "active": true,
+                    "contents": {
+                        "name": "UPDATE dev_tbl_base_snmp_vmwvm_raw SET processed = 'y' WHERE ldate > now() - INTERVAL 120 SECOND AND ldate < now() - INTERVAL 30 SECOND AND processed = 'n';"
                     }
                 }
             ]

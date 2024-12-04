@@ -7,8 +7,7 @@
 /**
  * @typedef {Object} loggingConfiguration
  * @property {string} appenders Appenders serialise log events to some form of output
- * @property {string} categories The category (or categories if you provide an array
- *     of values) that will be excluded from the appender.
+ * @property {string} categories The category (or categories if you provide an array of values) that will be excluded from the appender.
  * @description This defines the way the logger works
  */
 /**
@@ -29,22 +28,22 @@
 /**
  * @property {ApplicationConfiguration} appConfig
  */
-var appConfig;
+let appConfig;
 
 /* Load internal libraries */
-var logging = require('./lib/logger.js');
-var nejiutils = require('./lib/nejiutils.js');
-const MessageBroker = require('./lib/messagebroker.js');
+const Logger = require('commonfunctions').Logger;
+const nejiutils = require('commonfunctions').NejiUtils;
+const MessageBroker = require('commonfunctions').MessageBroker;
 const messagebroker = new MessageBroker();
 
 /* 3rd party libraries */
-var CronJob = require('cron').CronJob;
-var fs = require('fs');
-var crypto = require('crypto');
-var moment = require('moment');
+const CronJob = require('cron').CronJob;
+const fs = require('fs');
+const crypto = require('crypto');
+const moment = require('moment');
 /* Global vars */
-var Logging;
-var Common;
+let Logging;
+let Common;
 
 /**
  * This object contains all the information used during runtime
@@ -56,7 +55,7 @@ var Common;
  * @property {object} activeList -
  * @property {array} QueueAreas -
  */
-var RunTime = {
+const RunTime = {
     loadedServices: {},
     loadedNodes: '',
     activeServices: [],
@@ -94,7 +93,7 @@ function loadConfigurationFile() {
  */
 function initialiseApplication() {
     loadConfigurationFile();
-    Logging = new logging(appConfig.logging);
+    Logging = new Logger(appConfig.logging);
     Common = new nejiutils();
     Logging.system.info('Starting');
 }
@@ -203,10 +202,9 @@ process.on('uncaughtException', (error) => {
  * @property {string} receiveQueueName - This is the name of the consume instance
  * @property {function} externalHandover - This function is called from the message broker in order to action incoming data
  */
-var messageBrokerOptions = {
+const messageBrokerOptions = {
     logger: Logging.messagebroker,
     config: appConfig.messagebrokers,
-    publishQueueName: appConfig.queues.publishBaseName,
     externalHandover: receiveHandler
 };
 
@@ -257,7 +255,7 @@ function servicesFlatten() {
     Logging.system.info('Flatting services');
     RunTime.loadedServices.services.forEach(function (serviceRaw) {
         if (serviceRaw.active) {
-            RunTime.QueueAreas.push(serviceRaw.protocol);
+            RunTime.QueueAreas.push(serviceRaw.area);
             serviceRaw.inventory.forEach(function (service) {
                 if (service.active) {
                     Logging.system.info('Protocol "' + serviceRaw.protocol + '" has enabled inventory item "' + service.name + '"');
@@ -426,7 +424,7 @@ function buildNodeServiceRuntimeList() {
             Logging.system.debug('Node service breakdown: type "' + key + '", occurrence "' + val + '", items "' + counter[key][val] + '"');
         });
     });
-
+    console.log(RunTime.activeServices);
     Logging.system.info('Finished building node service runtime list');
 }
 
@@ -491,9 +489,9 @@ function runService(options = {}) {
 function createQueues() {
     Logging.messagebroker.info('Creating queues in the message broker');
     RunTime.QueueAreas.forEach(function (queuearea) {
-        Logging.messagebroker.debug('Creating "' + queuearea + '" queue');
+        // console.log(queuearea);
+        Logging.messagebroker.debug('Creating "' + appConfig.queues.publishBaseName + '/' + queuearea + '" queue');
         messagebroker.createPublishQueue(appConfig.queues.publishBaseName + '/' + queuearea);
-        // messagebroker.createConsumerQueue(appConfig.queues.publishBaseName + '/' + queuearea, queuearea)
     });
 }
 
