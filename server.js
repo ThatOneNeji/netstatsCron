@@ -424,7 +424,6 @@ function buildNodeServiceRuntimeList() {
             Logging.system.debug('Node service breakdown: type "' + key + '", occurrence "' + val + '", items "' + counter[key][val] + '"');
         });
     });
-    console.log(RunTime.activeServices);
     Logging.system.info('Finished building node service runtime list');
 }
 
@@ -489,7 +488,6 @@ function runService(options = {}) {
 function createQueues() {
     Logging.messagebroker.info('Creating queues in the message broker');
     RunTime.QueueAreas.forEach(function (queuearea) {
-        // console.log(queuearea);
         Logging.messagebroker.debug('Creating "' + appConfig.queues.publishBaseName + '/' + queuearea + '" queue');
         messagebroker.createPublishQueue(appConfig.queues.publishBaseName + '/' + queuearea);
     });
