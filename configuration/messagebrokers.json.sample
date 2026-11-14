@@ -1,0 +1,28 @@
+{
+    "messagebrokers": [
+        {
+            "host": "rabbitmq01.bwcsystem.local",
+            "port": 5672,
+            "active": true
+        },
+        {
+            "host": "rabbitmq02.bwcsystem.local",
+            "port": 5672,
+            "active": true
+        },
+        {
+            "host": "rabbitmq03.bwcsystem.local",
+            "port": 5672,
+            "active": true
+        }
+    ],
+    "credentials": {
+        "user": "dev_mcnms_cron",
+        "password": "dev_mcnms_cron",
+        "vhost": "dev_mcnms"
+    },
+    "queues": {
+        "consumeBaseName": "",
+        "publishBaseName": "dev_db2"
+    }
+}

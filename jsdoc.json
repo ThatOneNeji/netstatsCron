@@ -6,28 +6,33 @@
         "includePattern": ".+\\.js(doc|x)?$",
         "exclude": [
             "node_modules",
-            "lib/node_modules"
-        ],
-        "excludePatterns": "(^|\\/|\\\\|node_modules)"
+            "lib/node_modules",
+            "documentation",
+            "eslint.config.js"
+        ]
     },
     "plugins": [
         "plugins/markdown"
     ],
     "templates": {
-        "cleverLinks": false,
-        "systemName": "Netstats CRON",
-        "monospaceLinks": false,
-        "dateFormat": "YYYY/MM/DD",
+        "systemName": "netstats - Cron",
+        "footer": "",
+        "copyright": "",
+        "includeDate": true,
         "navType": "inline",
         "theme": "slate",
         "linenums": true,
-        "footer": "",
+        "collapseSymbols": false,
         "inverseNav": false,
+        "dateFormat": "YYYY/MM/DD",
+        "cleverLinks": false,
+        "monospaceLinks": false,
         "default": {
             "outputSourceFiles": true
         }
     },
     "opts": {
+        "template": "./node_modules/ink-docstrap/template",
         "encoding": "utf8",
         "destination": "./documentation/",
         "recurse": true

@@ -19,3 +19,7 @@ lib/_tmp/parsersnmpscalar.js
 /_backup
 /__lib
 /documentation/
+tmp/
+archive/
+config.json
+configuration/*.json

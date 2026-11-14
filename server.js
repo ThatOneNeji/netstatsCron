@@ -18,17 +18,47 @@
  * @description This object contains the configuration information for the logging subsystem
  */
 /**
+ * @typedef {object} Target
+ * @property {string} branch The name that will be used for the queue
+ * @property {string} path The file path to scan for files
+ * @property {string} filemask Regex pattern to use for selecting files
+ * @property {integer} fileage How old the file needs to be before it is processed
+ * @property {boolean} enabled This is to enable or disable the target
+ * @description This object contains the configuration information for the target directories to scan
+ */
+/**
+ * @typedef {object} Cron
+ * @property {string} interval The cron interval to use for scanning the target directories
+ * @property {string} timezone The timezone for the cron job
+ * @description This object contains the configuration information for the cron job
+ */
+/**
  * @typedef {object} ApplicationConfiguration
  * @property {loggingConfiguration} logger This defines the way the logger works
  * @property {loggingOptions} logging This object contains the configuration information for the logging subsystem
  * @property {messageBrokerServerSettings} messagebrokers This object contains the configuration information for the message broker sub system
  * @property {queueBase} queues This object contains the queue information for the message broker subsystem
+ * @property {Cron} cron This object contains the configuration information for the cron job
+ * @property {array} targets This object contains the configuration information for the target directories to scan
  * @description Configuration from config.json
  */
 /**
  * @property {ApplicationConfiguration} appConfig
  */
 let appConfig;
+
+/**
+ * @property {string} cfgPath
+ * @description This is the path to the configuration files
+ */
+const cfgPath = './configuration';
+
+/**
+ * @property {array} cfgFiles
+ * @description This is the list of configuration files that are loaded during startup
+ */
+const cfgFiles = ['./configuration/logging.json', './configuration/messagebrokers.json'];
+
 
 /* Load internal libraries */
 const Logger = require('commonfunctions').Logger;
@@ -76,14 +106,29 @@ function bail(err) {
 }
 
 /**
- * @function loadConfigurationFile
+ * @function loadConfigurationFiles
  * @description Reads configuration from local file
  */
-function loadConfigurationFile() {
-    try {
-        appConfig = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
-    } catch (err) {
-        bail(err);
+function loadConfigurationFiles() {
+    if (fs.existsSync(cfgPath)) {
+        for (const cfgFile of cfgFiles) {
+            try {
+                const cfgData = JSON.parse(fs.readFileSync(cfgFile, 'utf8'));
+                if (cfgFile.includes('logging.json')) {
+                    appConfig = Object.assign({}, appConfig, {logging: cfgData.logging, logger: cfgData.logger});
+                } else if (cfgFile.includes('messagebrokers.json')) {
+                    appConfig = Object.assign({}, appConfig, {messagebrokers: cfgData.messagebrokers, queues: cfgData.queues, credentials: cfgData.credentials});
+                } else if (cfgFile.includes('targets.json')) {
+                    appConfig = Object.assign({}, appConfig, {
+                        targets: cfgData.targets || [], cron: cfgData.cron || {'interval': '15 * * * * *', 'timezone': 'Africa/Johannesburg'}
+                    });
+                }
+            } catch (err) {
+                bail(err);
+            }
+        }
+    } else {
+        bail('The configuration directory does not exist(' + cfgPath + '), please create it and add the required configuration files');
     }
 }
 
@@ -92,7 +137,7 @@ function loadConfigurationFile() {
  * @description Starts up the application
  */
 function initialiseApplication() {
-    loadConfigurationFile();
+    loadConfigurationFiles();
     Logging = new Logger(appConfig.logging);
     Common = new nejiutils();
     Logging.system.info('Starting');
@@ -185,26 +230,32 @@ process.on('uncaughtException', (error) => {
  */
 
 /**
- * @typedef {Object} messageBrokerServerSettings
- * @property {string} host Host name or address to use
+ * @typedef {Object} messageBrokerCredentials
  * @property {string} user Username to use
  * @property {string} password Pasword for above listed username
- * @property {string} port Port for host (optional)
  * @property {string} vhost The vhost to use (optional)
+ * @description This object contains the credential information for the message broker sub system
+ */
+/**
+ * @typedef {Object} messageBrokerServerSettings
+ * @property {string} host Host name or address to use
+ * @property {string} port Port for host (optional)
  * @property {string} active If this host should be used or not (optional)
  * @description This object contains the configuration information for the message broker sub system
  */
 /**
  * @typedef {Object} messageBrokerOptions
- * @property {function} logger - Logger to pass on to the messagebroker so that it can log messages
- * @property {messageBrokerServerSettings} config - Configuration for the RabbitMQ server
- * @property {string} receiveQueue - This is the queue to consume from
- * @property {string} receiveQueueName - This is the name of the consume instance
- * @property {function} externalHandover - This function is called from the message broker in order to action incoming data
+ * @property {function} logger Logger to pass on to the messagebroker so that it can log messages
+ * @property {messageBrokerServerSettings} config Configuration for the RabbitMQ server
+ * @property {messageBrokerCredentials} credentials Credentials for the message broker
+ * @property {string} receiveQueue This is the queue to consume from
+ * @property {string} receiveQueueName This is the name of the consume instance
+ * @property {function} externalHandover This function is called from the message broker in order to action incoming data
  */
 const messageBrokerOptions = {
     logger: Logging.messagebroker,
     config: appConfig.messagebrokers,
+    credentials: appConfig.credentials,
     externalHandover: receiveHandler
 };
 
@@ -493,9 +544,14 @@ function createQueues() {
     });
 }
 
-
+/**
+ * @function receiveHandler
+ * @param {*} msg This the a msg from the consumer
+ * @description This function handles the incoming messages from the message broker
+ */
 function receiveHandler(msg) {
-    Logging.system.error(msg);
+    const JSONPayload = JSON.parse(msg.content.toString());
+    Logging.messageclient.debug(JSONPayload);
 }
 
 servicesLoad();
@@ -517,7 +573,7 @@ const cronDDHHMM15 = new CronJob('*/15 * * * * *', function () {
         cron: '0.25'
     }
     runService(options);
-}, null, true, 'Africa/Johannesburg');
+}, null, true, appConfig.cron.timezone);
 
 /**
  * This is a cron for every 30 seconds
@@ -529,7 +585,7 @@ const cronDDHHMM30 = new CronJob('*/30 * * * * *', function () {
         cron: 0.50
     }
     runService(options);
-}, null, true, 'Africa/Johannesburg');
+}, null, true, appConfig.cron.timezone);
 
 /**
  * This is a cron for every 1 minute
@@ -541,7 +597,7 @@ const cronDDHH01SS = new CronJob('0 * * * * *', function () {
         cron: 1
     }
     runService(options);
-}, null, true, 'Africa/Johannesburg');
+}, null, true, appConfig.cron.timezone);
 
 /**
  * This is a cron for every 5 minutes
@@ -553,7 +609,7 @@ const cronDDHH05SS = new CronJob('0 */5 * * * *', function () {
         cron: 5
     }
     runService(options);
-}, null, true, 'Africa/Johannesburg');
+}, null, true, appConfig.cron.timezone);
 
 cronDDHHMM15.start();
 cronDDHHMM30.start();
