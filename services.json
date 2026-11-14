@@ -1,5 +1,6 @@
 {
-    "services": [{
+    "services": [
+        {
             "protocol": "snmp",
             "area": "stats",
             "active": false,
@@ -7,7 +8,8 @@
                 "name": "public",
                 "port": 161
             },
-            "inventory": [{
+            "inventory": [
+                {
                     "name": "ifmib_interfaces",
                     "active": false,
                     "contents": {
@@ -124,10 +126,12 @@
             "parameters": {
                 "name": "ipv4"
             },
-            "inventory": [{
+            "inventory": [
+                {
                     "name": "International1",
                     "active": false,
-                    "contents": [{
+                    "contents": [
+                        {
                             "address": "www.google.com"
                         },
                         {
@@ -138,7 +142,8 @@
                 {
                     "name": "Local1",
                     "active": false,
-                    "contents": [{
+                    "contents": [
+                        {
                             "address": "www.coolideas.co.za"
                         },
                         {
@@ -155,14 +160,17 @@
                 {
                     "name": "International2",
                     "active": false,
-                    "contents": [{
-                        "address": "www.amazon.com"
-                    }]
+                    "contents": [
+                        {
+                            "address": "www.amazon.com"
+                        }
+                    ]
                 },
                 {
                     "name": "JAWUG1",
                     "active": false,
-                    "contents": [{
+                    "contents": [
+                        {
                             "address": "wugms.jawug"
                         },
                         {
@@ -182,10 +190,12 @@
             "parameters": {
                 "name": "ipv4"
             },
-            "inventory": [{
+            "inventory": [
+                {
                     "name": "International1",
                     "active": false,
-                    "contents": [{
+                    "contents": [
+                        {
                             "address": "www.google.com"
                         },
                         {
@@ -196,7 +206,8 @@
                 {
                     "name": "Local1",
                     "active": false,
-                    "contents": [{
+                    "contents": [
+                        {
                             "address": "www.coolideas.co.za"
                         },
                         {
@@ -213,14 +224,17 @@
                 {
                     "name": "International2",
                     "active": false,
-                    "contents": [{
-                        "address": "www.amazon.com"
-                    }]
+                    "contents": [
+                        {
+                            "address": "www.amazon.com"
+                        }
+                    ]
                 },
                 {
                     "name": "JAWUG1",
                     "active": false,
-                    "contents": [{
+                    "contents": [
+                        {
                             "address": "wugms.jawug"
                         },
                         {
@@ -234,7 +248,8 @@
                 {
                     "name": "TESTING",
                     "active": false,
-                    "contents": [{
+                    "contents": [
+                        {
                             "address": "www.google.com"
                         },
                         {
@@ -258,11 +273,13 @@
                 "path": "/",
                 "port": 80
             },
-            "inventory": [{
-                "name": "general",
-                "active": false,
-                "contents": {}
-            }]
+            "inventory": [
+                {
+                    "name": "general",
+                    "active": false,
+                    "contents": {}
+                }
+            ]
         },
         {
             "protocol": "https",
@@ -272,11 +289,13 @@
                 "path": "/",
                 "port": 443
             },
-            "inventory": [{
-                "name": "general",
-                "active": false,
-                "contents": {}
-            }]
+            "inventory": [
+                {
+                    "name": "general",
+                    "active": false,
+                    "contents": {}
+                }
+            ]
         },
         {
             "protocol": "ping",
@@ -286,11 +305,13 @@
                 "type": "ipv4",
                 "count": 20
             },
-            "inventory": [{
-                "name": "general",
-                "active": false,
-                "contents": {}
-            }]
+            "inventory": [
+                {
+                    "name": "general",
+                    "active": false,
+                    "contents": {}
+                }
+            ]
         },
         {
             "protocol": "mtr",
@@ -300,11 +321,13 @@
                 "type": "ipv4",
                 "count": 4
             },
-            "inventory": [{
-                "name": "general",
-                "active": false,
-                "contents": {}
-            }]
+            "inventory": [
+                {
+                    "name": "general",
+                    "active": false,
+                    "contents": {}
+                }
+            ]
         },
         {
             "protocol": "traceroute",
@@ -313,18 +336,21 @@
             "parameters": {
                 "name": "ipv4"
             },
-            "inventory": [{
-                "name": "general",
-                "active": false,
-                "contents": {}
-            }]
+            "inventory": [
+                {
+                    "name": "general",
+                    "active": false,
+                    "contents": {}
+                }
+            ]
         },
         {
             "protocol": "mysql",
             "area": "dev_mcnms/data",
             "active": true,
             "parameters": {},
-            "inventory": [{
+            "inventory": [
+                {
                     "name": "dev_tbl_base_snmp_diskio_raw",
                     "active": true,
                     "contents": {

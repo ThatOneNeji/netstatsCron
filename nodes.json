@@ -1,5 +1,6 @@
 {
-    "nodes": [{
+    "nodes": [
+        {
             "name": "Core network devices (Mikrotik)",
             "active": false,
             "addresses": [
@@ -7,7 +8,8 @@
             ],
             "protocols": {
                 "snmp": {
-                    "subscriptions": [{
+                    "subscriptions": [
+                        {
                             "name": "ifmib_interfaces",
                             "trigger": {
                                 "type": "interval",
@@ -99,43 +101,51 @@
                     "active": false
                 },
                 "http": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 5
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 },
                 "ping": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 0.25
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 0.25
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 },
                 "mtr": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 5
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 },
                 "traceroute": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 5
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 }
             }
@@ -148,7 +158,8 @@
             ],
             "protocols": {
                 "snmp": {
-                    "subscriptions": [{
+                    "subscriptions": [
+                        {
                             "name": "ifmib_interfaces",
                             "trigger": {
                                 "type": "interval",
@@ -240,43 +251,51 @@
                     "active": false
                 },
                 "http": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 5
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 },
                 "ping": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 0.50
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 0.50
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 },
                 "mtr": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 5
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 },
                 "traceroute": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 5
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 }
             }
@@ -298,7 +317,8 @@
             ],
             "protocols": {
                 "snmp": {
-                    "subscriptions": [{
+                    "subscriptions": [
+                        {
                             "name": "ifmib_interfaces",
                             "trigger": {
                                 "type": "interval",
@@ -390,43 +410,51 @@
                     "active": false
                 },
                 "http": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 5
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 },
                 "ping": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 0.50
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 0.50
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 },
                 "mtr": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 5
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 },
                 "traceroute": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 5
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 }
             }
@@ -444,7 +472,8 @@
             ],
             "protocols": {
                 "snmp": {
-                    "subscriptions": [{
+                    "subscriptions": [
+                        {
                             "name": "ifmib_interfaces",
                             "trigger": {
                                 "type": "interval",
@@ -536,43 +565,51 @@
                     "active": false
                 },
                 "http": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 5
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 },
                 "ping": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 1
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 },
                 "mtr": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 5
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 },
                 "traceroute": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 5
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 5
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 }
             }
@@ -587,13 +624,15 @@
             ],
             "protocols": {
                 "nslookup": {
-                    "subscriptions": [{
-                        "name": "JAWUG1",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 1
+                    "subscriptions": [
+                        {
+                            "name": "JAWUG1",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 1
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 }
             }
@@ -607,13 +646,15 @@
             ],
             "protocols": {
                 "ping": {
-                    "subscriptions": [{
-                        "name": "general",
-                        "trigger": {
-                            "type": "interval",
-                            "value": 0.5
+                    "subscriptions": [
+                        {
+                            "name": "general",
+                            "trigger": {
+                                "type": "interval",
+                                "value": 0.5
+                            }
                         }
-                    }],
+                    ],
                     "active": false
                 }
             }
@@ -626,7 +667,8 @@
             ],
             "protocols": {
                 "mysql": {
-                    "subscriptions": [{
+                    "subscriptions": [
+                        {
                             "name": "dev_tbl_base_snmp_diskio_raw",
                             "trigger": {
                                 "type": "interval",
