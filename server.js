@@ -118,10 +118,6 @@ function loadConfigurationFiles() {
                     appConfig = Object.assign({}, appConfig, {logging: cfgData.logging, logger: cfgData.logger});
                 } else if (cfgFile.includes('messagebrokers.json')) {
                     appConfig = Object.assign({}, appConfig, {messagebrokers: cfgData.messagebrokers, queues: cfgData.queues, credentials: cfgData.credentials});
-                } else if (cfgFile.includes('targets.json')) {
-                    appConfig = Object.assign({}, appConfig, {
-                        targets: cfgData.targets || [], cron: cfgData.cron || {'interval': '15 * * * * *', 'timezone': 'Africa/Johannesburg'}
-                    });
                 }
             } catch (err) {
                 bail(err);
